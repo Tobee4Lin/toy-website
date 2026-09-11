@@ -1,0 +1,108 @@
+[
+  {
+    "id": "4",
+    "slug": "aa",
+    "name": "AA1122",
+    "itemNumber": "BT-50012",
+    "category": "rc-toys",
+    "categoryLabel": "RC Toys",
+    "description": "但是发热管",
+    "features": [
+      "f无法为"
+    ],
+    "moq": 500,
+    "customizable": true,
+    "customizationOptions": [],
+    "packaging": "范德萨发给如果",
+    "leadTime": "30",
+    "ageRange": "6对",
+    "imageUrl": "/images/uploads/1787207687440-558528940.jpg",
+    "galleryImages": [
+      "/images/uploads/1787207053082-210754175.jpg",
+      "/images/uploads/1787207053106-432914075.jpg"
+    ],
+    "certifications": [],
+    "isFeatured": false
+  },
+  {
+    "id": "2",
+    "slug": "creative-building-blocks-500pcs",
+    "name": "Creative Building Blocks 500pcs",
+    "itemNumber": "BB-3001",
+    "category": "building-blocks",
+    "categoryLabel": "Building Blocks",
+    "description": "500 pieces creative building blocks set. Compatible with major brands. Includes wheels, windows, doors and special pieces.",
+    "features": [
+      "500 pieces",
+      "Compatible with major brands",
+      "ABS material",
+      "Storage bucket included"
+    ],
+    "moq": 300,
+    "customizable": true,
+    "customizationOptions": [],
+    "packaging": "Storage bucket with color label",
+    "leadTime": "25-30 days",
+    "ageRange": "6+ years",
+    "imageUrl": "/images/uploads/1787206966574-287871198.jpg",
+    "galleryImages": [],
+    "certifications": [],
+    "isFeatured": true
+  },
+  {
+    "id": "3",
+    "slug": "rc-high-speed-car",
+    "name": "RC High Speed Car",
+    "itemNumber": "RC-4001",
+    "category": "rc-toys",
+    "categoryLabel": "RC Toys",
+    "description": "High speed remote control car with 2.4GHz remote control. Rechargeable battery. Top speed 25km/h.",
+    "features": [
+      "2.4GHz remote control",
+      "25km/h top speed",
+      "Rechargeable battery",
+      "Shock absorption system"
+    ],
+    "moq": 200,
+    "customizable": true,
+    "customizationOptions": [],
+    "packaging": "Display box",
+    "leadTime": "35-40 days",
+    "ageRange": "8+ years",
+    "imageUrl": "/images/uploads/1787206976995-249040938.jpg",
+    "galleryImages": [
+      "/images/uploads/1787207733189-494081154.jpg"
+    ],
+    "certifications": [],
+    "isFeatured": true
+  },
+  {
+    "id": "1",
+    "slug": "summer-beach-bucket-set11",
+    "name": "Summer Beach Bucket Set11",
+    "itemNumber": "BT-20012",
+    "category": "bubble-toys",
+    "categoryLabel": "Bubble Toys",
+    "description": "Complete beach bucket set with 8 pieces including bucket, shovel, rake, sand molds and more. Made of durable non-toxic plastic.",
+    "features": [
+      "18-piece set",
+      "Non-toxic BPA-free plastic 99",
+      "Bright colors 99",
+      "Suitable for ages 13+"
+    ],
+    "moq": 1500,
+    "customizable": true,
+    "customizationOptions": [],
+    "packaging": "1111Color box packaging",
+    "leadTime": "20-35 days",
+    "ageRange": "13+ years",
+    "imageUrl": "/images/uploads/1787206037605-543800073.png",
+    "galleryImages": [
+      "/images/uploads/1787206047841-942835698.jpg",
+      "/images/uploads/1787206047893-805117214.png",
+      "/images/uploads/1787206047929-446373141.jpg"
+    ],
+    "certifications": [],
+    "isFeatured": true
+  }
+]

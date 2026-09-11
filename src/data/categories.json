@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Beach Toys",
+    "slug": "beach-toys",
+    "description": "Summer fun beach toys for kids of all ages",
+    "productCount": 0,
+    "heroImageUrl": "/images/categories/beach-toys.jpg",
+    "cardImageUrl": "/images/categories/beach-toys.jpg",
+    "accentColor": "#FF6B35"
+  },
+  {
+    "id": "4",
+    "name": "Bubble Toys",
+    "slug": "bubble-toys",
+    "description": "Bubble wands, guns, machines & accessories for magical play moments.",
+    "productCount": 1,
+    "heroImageUrl": "/images/categories/bubble-toys.jpg",
+    "cardImageUrl": "/images/categories/bubble-toys.jpg",
+    "accentColor": "#10B981"
+  },
+  {
+    "id": "2",
+    "name": "Building Blocks",
+    "slug": "building-blocks",
+    "description": "Creative building blocks and construction sets",
+    "productCount": 1,
+    "heroImageUrl": "/images/categories/building-blocks.jpg",
+    "cardImageUrl": "/images/categories/building-blocks.jpg",
+    "accentColor": "#1565FF"
+  },
+  {
+    "id": "3",
+    "name": "RC Toys",
+    "slug": "rc-toys",
+    "description": "Remote control cars, drones and more",
+    "productCount": 2,
+    "heroImageUrl": "/images/categories/rc-toys.jpg",
+    "cardImageUrl": "/images/categories/rc-toys.jpg",
+    "accentColor": "#9333EA"
+  }
+]
