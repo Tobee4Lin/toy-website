@@ -17,13 +17,19 @@ const REGIONS = [
   { id: 'ap', name: 'Asia Pacific', markets: [], top: '48%', left: '78%' },
 ];
 
-// Simplified world map dots pattern
+// Deterministic pseudo-random for stable SSR/CSR output (no hydration mismatch)
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed * 9999) * 10000;
+  return x - Math.floor(x);
+}
+
+// Simplified world map dots pattern — deterministic, no Math.random() during render
 const MAP_DOTS = Array.from({ length: 120 }, (_, i) => ({
   id: i,
-  x: (i % 20) * 5 + 2 + Math.random() * 2,
-  y: Math.floor(i / 20) * 12 + 8 + Math.random() * 4,
-  size: Math.random() > 0.7 ? 3 : 2,
-  opacity: 0.15 + Math.random() * 0.25,
+  x: (i % 20) * 5 + 2 + seededRandom(i + 1) * 2,
+  y: Math.floor(i / 20) * 12 + 8 + seededRandom(i + 100) * 4,
+  size: seededRandom(i + 200) > 0.7 ? 3 : 2,
+  opacity: 0.15 + seededRandom(i + 300) * 0.25,
 }));
 
 export default function GlobalMarketSection() {
