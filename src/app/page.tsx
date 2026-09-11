@@ -7,7 +7,7 @@ import FeaturedProductsSection from '@/components/sections/home/FeaturedProducts
 import OemSection from '@/components/sections/home/OemSection';
 import FactorySection from '@/components/sections/home/FactorySection';
 import QualitySection from '@/components/sections/home/QualitySection';
-import GlobalMarketSection from '@/components/sections/home/GlobalMarketSection';
+import GlobalMarketSection from '@/components/sections/home/GlobalMarketSectionClient';
 import BlogPreviewSection from '@/components/sections/home/BlogPreviewSection';
 import FinalCtaSection from '@/components/sections/home/FinalCtaSection';
 import { faqSchema, howToSchema } from '@/lib/structuredData';
