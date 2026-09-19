@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   return {
     title,
     description,
-    keywords: [product.name, product.itemNumber, product.categoryLabel, 'wholesale', 'Chenghai', 'toy sourcing'],
+    keywords: [product.name, product.itemNumber, product.categoryLabel, 'wholesale', 'Chenghai', 'toy manufacturing'],
     alternates: {
       canonical: `/product/${product.slug}`,
     },

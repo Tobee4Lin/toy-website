@@ -30,7 +30,7 @@ const QC_STAGES = [
   },
 ];
 
-const CERTIFICATIONS = ['EN71', 'ASTM F963', 'CPSIA', 'CE', 'CPSC', 'RoHS'];
+const CERTIFICATIONS = ['BSCI', 'ISO9001', 'EN71', 'ASTM F963', 'CPSIA', 'CE', 'CPSC', 'RoHS'];
 
 export default function QualitySection() {
   return (
@@ -102,6 +102,15 @@ export default function QualitySection() {
                 <span className="text-sm font-semibold text-[#071A2D]">{cert}</span>
               </div>
             ))}
+          </div>
+          <div className="mt-6 overflow-hidden rounded-xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/factory/certifications.png"
+              alt="Factory certifications and test reports"
+              className="w-full object-cover"
+              loading="lazy"
+            />
           </div>
         </motion.div>
       </div>

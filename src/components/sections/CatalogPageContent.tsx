@@ -160,7 +160,7 @@ export default function CatalogPageContent() {
                       <h2 className="text-3xl font-black text-white md:text-4xl">
                         TOY
                         <br />
-                        SOURCING
+                        MANUFACTURING
                         <br />
                         CATALOG
                       </h2>

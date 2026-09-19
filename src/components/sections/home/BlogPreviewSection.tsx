@@ -34,7 +34,7 @@ export default function BlogPreviewSection({ posts }: BlogPreviewSectionProps) {
               Latest from Our Blog
             </h2>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              Expert insights on toy sourcing, safety standards, market trends and
+              Expert insights on toy manufacturing, safety standards, market trends and
               industry best practices.
             </p>
           </div>

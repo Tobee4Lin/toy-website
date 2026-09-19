@@ -24,7 +24,7 @@ export default function MarketWhatsAppButton({
 
   const handleClick = () => {
     trackEvent('whatsapp_click', { source: `market_${country}` });
-    const msg = `Hello! I am a buyer from ${fullName} and I'm interested in sourcing toys for the ${country} market. I'd like to discuss product options, certifications, and pricing.`;
+    const msg = `Hello! I am a buyer from ${fullName} and I'm interested in manufacturing toys for the ${country} market. I'd like to discuss product options, certifications, and pricing.`;
     window.open(
       buildWhatsAppUrl(config.whatsapp, msg),
       '_blank',

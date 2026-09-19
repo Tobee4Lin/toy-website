@@ -13,7 +13,7 @@ export interface SEOProps {
 
 const SITE_URL = 'https://www.toysourcingpartner.com';
 const DEFAULT_OG_IMAGE = '/og-image.jpg';
-const SITE_NAME = 'Toy Sourcing Partner';
+const SITE_NAME = 'Levich Toys';
 
 /**
  * useSEO - 动态设置页面 SEO 元信息

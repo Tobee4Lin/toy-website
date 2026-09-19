@@ -36,13 +36,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
-  const title = `${cat.name} Wholesale | Chenghai Toy Sourcing`;
+  const title = `${cat.name} Wholesale | Chenghai Toy Manufacturing`;
   const description = `Source ${cat.name.toLowerCase()} directly from Chenghai, China. ${cat.description || 'Competitive wholesale prices, OEM/ODM customization and reliable export.'}`;
 
   return {
     title,
     description,
-    keywords: [cat.name, cat.slug, 'wholesale', 'Chenghai', 'toy sourcing'],
+    keywords: [cat.name, cat.slug, 'wholesale', 'Chenghai', 'toy manufacturing'],
     alternates: {
       canonical: `/products/${cat.slug}`,
     },

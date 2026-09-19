@@ -27,7 +27,7 @@ export default function FinalCtaSection() {
     trackEvent('whatsapp_click', { source: 'final_cta' });
     const url = buildWhatsAppUrl(
       config.whatsapp,
-      "Hello! I'd like to discuss toy sourcing opportunities for my business.",
+      "Hello! I'd like to discuss toy manufacturing for my business.",
     );
     window.open(url, '_blank', 'noopener,noreferrer');
   };

@@ -7,9 +7,9 @@ import MagnetLines from '@/components/effects/MagnetLines';
 const FEATURES = [
   {
     number: '01',
-    title: 'Factory & Supply Chain Access',
+    title: 'Own Factory, Direct Pricing',
     description:
-      'Direct access to 80+ vetted Chenghai toy factories. We handle sourcing, pricing negotiation, and production coordination so you don\'t have to.',
+      'Our own 20,000sqm BSCI & ISO9001 certified factory. Direct factory pricing, no middleman markups.',
     icon: Factory,
     accent: '#1565FF',
   },
@@ -68,8 +68,8 @@ export default function WhyChooseUsSection() {
             Built for Global Toy Buyers
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
-            We combine deep Chenghai supply chain expertise with international buyer
-            standards — making toy sourcing simple, reliable and profitable.
+            We combine 10+ years of manufacturing expertise with international buyer
+            standards — making toy production simple, reliable and profitable.
           </p>
         </motion.div>
 

@@ -54,7 +54,7 @@ export default function ContactPageContent() {
   const handleWhatsApp = () => {
     trackEvent('whatsapp_click', { source: 'contact_page' });
     window.open(
-      buildWhatsAppUrl(config.whatsapp, 'Hello! I would like to discuss toy sourcing opportunities.'),
+      buildWhatsAppUrl(config.whatsapp, 'Hello! I would like to discuss toy manufacturing opportunities.'),
       '_blank',
       'noopener,noreferrer',
     );
@@ -89,7 +89,7 @@ export default function ContactPageContent() {
               </span>
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-white/70">
-              Have a question, a project idea, or want to discuss sourcing
+              Have a question, a project idea, or want to discuss manufacturing
               options? Our team is here to help.
             </p>
           </motion.div>

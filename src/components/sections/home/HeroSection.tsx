@@ -212,7 +212,7 @@ export default function HeroSection() {
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
               <Sparkles className="size-3.5 text-[#FFC400]" />
-              <ShinyText text="Your Toy Sourcing Partner in Chenghai, China" />
+              <ShinyText text="Your Levich Toys in Chenghai, China" />
             </div>
           </motion.div>
 
@@ -278,9 +278,9 @@ export default function HeroSection() {
             className="mt-12 grid max-w-md grid-cols-3 gap-6 text-center"
           >
             {[
-              { value: '500+', label: 'Toy SKUs' },
-              { value: '80+', label: 'Partner Factories' },
-              { value: '50+', label: 'Countries Served' },
+              { value: '2015', label: 'Founded' },
+              { value: '10+', label: 'Years Experience' },
+              { value: '20,000㎡', label: 'Factory Area' },
             ].map((stat) => (
               <div key={stat.label} className="border-l border-white/10 first:border-l-0">
                 <div className="text-2xl font-bold text-white md:text-3xl">

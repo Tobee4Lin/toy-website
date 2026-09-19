@@ -38,13 +38,13 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     return { title: 'Article Not Found' };
   }
 
-  const title = `${post.title} | Toy Sourcing Blog`;
-  const description = post.excerpt || post.content?.join(' ').slice(0, 160) || 'Toy industry article';
+  const title = `${post.title} | Toy Manufacturing Blog`;
+  const description = post.excerpt || post.content?.join(' ').slice(0, 160) || 'Toy industry articles';
 
   return {
     title,
     description,
-    keywords: ['toy industry', 'sourcing', post.category],
+    keywords: ['toy industry', 'manufacturing', post.category],
     alternates: {
       canonical: `/blog/${post.slug}`,
     },

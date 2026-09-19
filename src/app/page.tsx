@@ -14,11 +14,11 @@ import { faqSchema, howToSchema } from '@/lib/structuredData';
 import { getProducts, getCategories, getBlogPosts } from '@/lib/server-data';
 
 export const metadata: Metadata = {
-  title: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
+  title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
   description:
-    'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital. OEM/ODM, wholesale supply and global export.',
+    'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital. OEM/ODM, wholesale supply and global export.',
   keywords: [
-    'toy sourcing',
+    'toy manufacturing',
     'Chenghai toys',
     'beach toys',
     'bubble toys',
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     'OEM toys',
   ],
   openGraph: {
-    title: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
+    title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
-      'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
+      'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
     url: '/',
   },
 };
@@ -47,12 +47,12 @@ export default async function HomePage() {
   const faqJsonLd = JSON.stringify(
     faqSchema([
       {
-        question: 'What products does Toy Sourcing Partner supply?',
+        question: 'What products does Levich Toys supply?',
         answer:
           'We supply four main toy categories from Chenghai, China: beach toys (sand toys, beach buckets, shovels), bubble toys (bubble wands, bubble guns, bubble machines), remote control toys (RC cars, stunt cars, RC helicopters) and plastic building blocks (educational blocks, STEM blocks, creative construction sets).',
       },
       {
-        question: 'Where is Toy Sourcing Partner located?',
+        question: 'Where is Levich Toys located?',
         answer:
           'We are based in Chenghai District, Shantou, Guangdong, China — known as China\'s toy capital and the world\'s largest toy manufacturing cluster, with thousands of toy factories and a mature supply chain.',
       },

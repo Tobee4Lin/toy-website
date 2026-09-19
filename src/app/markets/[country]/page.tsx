@@ -30,13 +30,13 @@ export async function generateMetadata({ params }: MarketPageProps): Promise<Met
     return { title: 'Market Not Found' };
   }
 
-  const title = `Toy Sourcing for the ${market.country} Market | ${market.region}`;
+  const title = `Toy Manufacturing for the ${market.country} Market | ${market.region}`;
   const description = market.overview;
 
   return {
     title,
     description,
-    keywords: [market.country, 'toy sourcing', market.region, 'toy import', 'wholesale toys'],
+    keywords: [market.country, 'toy manufacturing', market.region, 'toy import', 'wholesale toys'],
     alternates: {
       canonical: `/markets/${market.slug}`,
     },
@@ -106,7 +106,7 @@ export default async function MarketPage({ params }: MarketPageProps) {
                 {market.region}
               </Badge>
               <h1 className="text-3xl font-black md:text-5xl">
-                Toy Sourcing for the{' '}
+                Toy Manufacturing for the{' '}
                 <span className="bg-gradient-to-r from-[#1565FF] to-[#FFC400] bg-clip-text text-transparent">
                   {market.country}
                 </span>{' '}
@@ -204,10 +204,13 @@ export default async function MarketPage({ params }: MarketPageProps) {
             {relevantCats.map((cat) => (
               <Link key={cat.id} href={`/products/${cat.slug}`} className="block h-full">
                 <Card className="h-full overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg">
-                  <div
-                    className="aspect-[4/3] w-full"
-                    style={{ backgroundColor: cat.accentColor }}
-                  />
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
+                    <Image
+                      src={cat.cardImageUrl}
+                      alt={cat.name}
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
                   <CardContent className="p-4">
                     <h3 className="font-semibold text-[#071A2D]">
                       {cat.name}
@@ -335,7 +338,7 @@ export default async function MarketPage({ params }: MarketPageProps) {
         <div className="mx-auto max-w-4xl px-4 text-center md:px-6">
           <Badge className="mb-4 bg-[#FF7A00] text-white">
             <Sparkles className="mr-1 size-3" />
-            Sourcing Partner
+            Manufacturer
           </Badge>
           <h2 className="text-2xl font-black md:text-4xl">
             Ready to Source Toys for the {market.country} Market?

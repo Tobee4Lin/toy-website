@@ -4,20 +4,20 @@ import AboutPageContent from '@/components/sections/AboutPageContent';
 import { breadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
-  title: 'About Us | Chenghai Toy Sourcing & Manufacturing Partner',
+  title: 'About Us | Chenghai Toy Manufacturing & Manufacturing Partner',
   description:
-    'Learn about our Chenghai-based toy sourcing and manufacturing partnership. Industry knowledge, supply chain advantages, product development, factory cooperation and international customer support.',
+    'Learn about our Chenghai-based toy manufacturing and manufacturing partnership. Industry knowledge, supply chain advantages, product development, factory cooperation and international customer support.',
   keywords: [
-    'about toy sourcing',
+    'about toy manufacturing',
     'Chenghai toy company',
     'toy supplier China',
-    'toy sourcing partner',
+    'toy manufacturer',
     'toy export company',
   ],
   openGraph: {
-    title: 'About Us | Chenghai Toy Sourcing & Manufacturing Partner',
+    title: 'About Us | Chenghai Toy Manufacturing & Manufacturing Partner',
     description:
-      'Learn about our Chenghai-based toy sourcing and manufacturing partnership. Industry knowledge, supply chain advantages, product development, factory cooperation and international customer support.',
+      'Learn about our Chenghai-based toy manufacturing and manufacturing partnership. Industry knowledge, supply chain advantages, product development, factory cooperation and international customer support.',
     url: '/about',
   },
 };

@@ -7,10 +7,10 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 
-const FACTORY_IMAGE = '/images/factory.jpg';
+const FACTORY_IMAGE = '/images/factory/factory-building.png';
 
 const CAPABILITIES = [
-  { icon: Search, title: 'Product Sourcing', desc: 'Find the right factory at the right price.' },
+  { icon: Search, title: 'Custom Manufacturing', desc: 'Find the right factory at the right price.' },
   { icon: Monitor, title: 'Production Monitoring', desc: 'Real-time updates on your orders.' },
   { icon: Factory, title: 'Injection Molding', desc: 'Precision plastic manufacturing.' },
   { icon: Package, title: 'Assembly & Packaging', desc: 'End-to-end production coordination.' },
@@ -19,10 +19,10 @@ const CAPABILITIES = [
 ];
 
 const STATS = [
-  { value: '80+', label: 'Partner Factories' },
-  { value: '500+', label: 'Active SKUs' },
-  { value: '10M+', label: 'Units / Year' },
-  { value: '50+', label: 'Countries Served' },
+  { value: '2015', label: 'Founded' },
+  { value: '20,000㎡', label: 'Factory Area' },
+  { value: '7 days', label: 'Sample Lead Time' },
+  { value: 'BSCI', label: 'Audited' },
 ];
 
 export default function FactorySection() {
@@ -46,10 +46,10 @@ export default function FactorySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D]/60 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="text-2xl font-bold text-white">
-                  Chenghai Factory Network
+                  Our Own Factory Since 2015
                 </div>
                 <div className="text-sm text-white/70">
-                  Shantou, Guangdong — The World&apos;s Toy Capital
+                  20,000㎡ facility · BSCI &amp; ISO9001 certified · Chenghai, China
                 </div>
               </div>
             </div>
@@ -77,13 +77,15 @@ export default function FactorySection() {
             transition={{ duration: 0.7 }}
           >
             <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-[#1565FF]">
-              Factory & Supply Chain
+              Our Factory
             </span>
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl lg:text-5xl">
-              Chenghai Factory Network
+              Chenghai Our Factory
             </h2>
             <p className="mb-8 max-w-xl text-base text-muted-foreground md:text-lg">
-              Direct access to vetted toy factories in the world&apos;s toy capital. We handle sourcing, production monitoring, and quality control.
+              Operating a 20,000㎡ BSCI &amp; ISO9001 certified factory since 2015.
+              7-day sampling, 20-25 day production lead times, and a 5,000㎡ warehouse
+              for reliable toy manufacturing and global supply.
             </p>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -108,7 +110,7 @@ export default function FactorySection() {
 
             <div className="mt-8">
               <Button asChild className="bg-[#1565FF] text-white hover:bg-[#1565FF]/90">
-                <Link href="/factory">Explore Factory Network</Link>
+                <Link href="/about">Learn More About Our Factory</Link>
               </Button>
             </div>
           </motion.div>

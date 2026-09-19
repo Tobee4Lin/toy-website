@@ -8,15 +8,15 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Blog | Toy Industry Insights, Sourcing Guides & Market Trends',
+    title: 'Blog | Toy Industry Insights, Manufacturing Guides & Market Trends',
     description:
-      'Toy industry insights, sourcing guides, product trends, safety standards and China sourcing tips. Learn how to import toys from Chenghai, China.',
-    keywords: ['toy industry blog', 'toy sourcing guide', 'China toy import', 'toy market trends', 'toy safety standards', 'Chenghai toy market'],
+      'Toy industry insights, manufacturing guides, product trends, safety standards and China toy factory tips. Learn about toy manufacturing from our Chenghai factory.',
+    keywords: ['toy industry blog', 'toy manufacturing guide', 'China toy factory', 'toy market trends', 'toy safety standards', 'Chenghai toy factory'],
     alternates: { canonical: '/blog' },
     openGraph: {
-      title: 'Blog | Toy Industry Insights, Sourcing Guides & Market Trends',
+      title: 'Blog | Toy Industry Insights, Manufacturing Guides & Market Trends',
       description:
-        'Toy industry insights, sourcing guides, product trends, safety standards and China sourcing tips.',
+        'Toy industry insights, manufacturing guides, product trends, safety standards and China toy factory tips.',
       type: 'website',
     },
   };
@@ -45,8 +45,8 @@ export default async function BlogPage() {
               Toy Industry Insights
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              Expert guides, market trends, safety standards, and sourcing tips
-              for toy importers and brands worldwide.
+              Expert guides, market trends, safety standards, and manufacturing tips
+              for toy brands and importers worldwide.
             </p>
           </div>
         </div>

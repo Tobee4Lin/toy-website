@@ -37,12 +37,12 @@ export const MOCK_SITE_CONFIG: ISiteConfig = {
     youtube: 'https://youtube.com/@yourbrand',
   },
   defaultSEO: {
-    title: 'Your Brand - Toy Sourcing Partner in Chenghai, China',
+    title: 'Your Brand - Levich Toys in Chenghai, China',
     description:
-      'Innovative toys, reliable manufacturing, global supply. Your trusted B2B toy sourcing partner in Chenghai, China.',
+      'Innovative toys, reliable manufacturing, global supply. Your trusted B2B toy manufacturer in Chenghai, China.',
     keywords: [
       'toy manufacturer',
-      'toy sourcing',
+      'toy manufacturing',
       'Chenghai toys',
       'OEM toys',
       'wholesale toys',

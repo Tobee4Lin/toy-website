@@ -1,6 +1,7 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Facebook,
   Linkedin,
@@ -25,9 +26,7 @@ const PRODUCT_LINKS = [
 
 const COMPANY_LINKS = [
   { label: 'OEM Service', href: '/oem' },
-  { label: 'Factory Network', href: '/factory' },
-  { label: 'Quality Assurance', href: '/quality' },
-  { label: 'About Us', href: '/about' },
+  { label: 'About Our Factory', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -52,15 +51,16 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="mb-4 flex items-center gap-2">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#1565FF] to-[#FF7A00]">
-                <span className="text-sm font-bold text-white">TS</span>
-              </div>
-              <span className="text-lg font-bold uppercase tracking-wider">
-                {config.brandName}
-              </span>
+              <Image
+                src="/images/logo-horizontal-v2.png"
+                alt="Levich Toys"
+                width={220}
+                height={56}
+                className="h-12 w-auto object-contain"
+              />
             </div>
             <p className="mb-6 max-w-sm text-sm leading-relaxed text-white/60">
-              {config.slogan}. Your trusted toy sourcing partner in Chenghai, China.
+              {config.slogan}. Your trusted toy manufacturer in Chenghai, China.
               Innovative products, reliable manufacturing, global supply.
             </p>
             <div className="space-y-3 text-sm text-white/70">
@@ -168,7 +168,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
           <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} {config.companyName}. All rights reserved.
+            漏 {new Date().getFullYear()} {config.companyName}. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             {config.socialLinks.facebook && (

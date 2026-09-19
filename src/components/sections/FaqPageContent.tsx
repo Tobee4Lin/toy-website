@@ -34,7 +34,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: 'Do you own all the factories?',
-    answer: 'We work with a carefully selected network of partner factories in the Chenghai area. This model gives our clients access to a broader range of products and production capabilities than any single factory could provide. We handle quality control, production coordination, and communication so you only need one point of contact.',
+    answer: 'We work with a carefully selected network of our production lines in the Chenghai area. This model gives our clients access to a broader range of products and production capabilities than any single factory could provide. We handle quality control, production coordination, and communication so you only need one point of contact.',
     category: 'general',
   },
   {
@@ -60,7 +60,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: 'Are your products safe? What certifications do you have?',
-    answer: 'Product safety is our priority. Our partner factories produce toys that comply with international safety standards. Many of our products meet EN71, ASTM F963, CPSIA, and CE standards depending on the specific item and target market. Certification availability varies by product — please ask for specific product certifications.',
+    answer: 'Product safety is our priority. Our our production lines produce toys that comply with international safety standards. Many of our products meet EN71, ASTM F963, CPSIA, and CE standards depending on the specific item and target market. Certification availability varies by product — please ask for specific product certifications.',
     category: 'products',
   },
   // OEM / Custom

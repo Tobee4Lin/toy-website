@@ -4,20 +4,20 @@ import ContactPageContent from '@/components/sections/ContactPageContent';
 import { breadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Request a Toy Quote | Chenghai Sourcing',
+  title: 'Contact Us | Request a Toy Quote | Chenghai Toy Factory',
   description:
-    'Contact us for toy sourcing, OEM/ODM customization and wholesale quotations. Request a quote, send an inquiry or chat on WhatsApp. We respond within 24 hours.',
+    'Contact our toy factory for OEM/ODM customization and wholesale quotations. Request a quote, send an inquiry or chat on WhatsApp. We respond within 24 hours.',
   keywords: [
-    'contact toy supplier',
+    'contact toy factory',
     'request toy quote',
     'toy wholesale inquiry',
-    'Chenghai toy contact',
-    'toy sourcing China',
+    'Chenghai toy factory contact',
+    'toy manufacturer China',
   ],
   openGraph: {
-    title: 'Contact Us | Request a Toy Quote | Chenghai Sourcing',
+    title: 'Contact Us | Request a Toy Quote | Chenghai Toy Factory',
     description:
-      'Contact us for toy sourcing, OEM/ODM customization and wholesale quotations. Request a quote, send an inquiry or chat on WhatsApp. We respond within 24 hours.',
+      'Contact our toy factory for OEM/ODM customization and wholesale quotations. Request a quote, send an inquiry or chat on WhatsApp.',
     url: '/contact',
   },
 };

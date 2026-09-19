@@ -5,8 +5,8 @@
  */
 
 const SITE_URL = 'https://www.toysourcingpartner.com';
-const COMPANY_NAME = 'Toy Sourcing Partner';
-const COMPANY_DESC = 'Your trusted toy sourcing partner in Chenghai, China. Specializing in beach toys, bubble toys, remote control toys and building blocks. OEM/ODM, wholesale supply and global export.';
+const COMPANY_NAME = 'Levich Toys';
+const COMPANY_DESC = 'Your trusted toy manufacturer in Chenghai, China. Specializing in beach toys, bubble toys, remote control toys and building blocks. OEM/ODM, wholesale supply and global export.';
 
 /** Organization Schema */
 export function organizationSchema() {
@@ -28,10 +28,10 @@ export function organizationSchema() {
       'Bubble Toys',
       'Remote Control Toys',
       'Building Blocks',
-      'Toy Sourcing',
-      'OEM ODM Toys',
       'Toy Manufacturing',
-      'Chenghai Toy Supply Chain',
+      'OEM ODM Toys',
+      'Injection Molding',
+      'BSCI Certified Toy Factory',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

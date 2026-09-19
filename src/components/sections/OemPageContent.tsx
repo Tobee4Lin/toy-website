@@ -135,8 +135,8 @@ export default function OemPageContent() {
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-white/70">
-              From concept to production — our experienced engineering and sourcing
-              team brings your toy ideas to life with reliable manufacturing in
+              From concept to production — our experienced engineering team
+              brings your toy ideas to life with reliable manufacturing in
               Chenghai, China.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">

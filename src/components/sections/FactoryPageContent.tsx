@@ -24,13 +24,13 @@ import { trackEvent } from '@/lib/analytics';
 const CAPABILITIES = [
   {
     icon: Search,
-    title: 'Product Sourcing',
+    title: 'Custom Manufacturing',
     desc: 'Access thousands of toy products across Chenghai. We find the right factory, verify quality, and negotiate the best terms.',
   },
   {
     icon: Settings,
     title: 'Injection Molding',
-    desc: 'High-precision plastic injection molding with partner factories. Multi-cavity molds, fast cycle times, consistent quality.',
+    desc: 'High-precision plastic injection molding with our production lines. Multi-cavity molds, fast cycle times, consistent quality.',
   },
   {
     icon: Wrench,
@@ -55,10 +55,28 @@ const CAPABILITIES = [
 ];
 
 const STATS = [
-  { value: '200+', label: 'Partner Factories' },
-  { value: '50+', label: 'Countries Served' },
-  { value: '10K+', label: 'SKU Catalog' },
-  { value: '24hr', label: 'Response Time' },
+  { value: '2015', label: 'Founded' },
+  { value: '10+', label: 'Years Experience' },
+  { value: '20,000㎡', label: 'Factory Area' },
+  { value: '5,000㎡', label: 'Warehouse' },
+];
+
+const PRODUCTION_STATS = [
+  { value: '7 days', label: 'Sample Lead Time' },
+  { value: '20-25 days', label: 'Mass Production' },
+  { value: 'BSCI', label: 'Audited Factory' },
+  { value: 'ISO9001', label: 'Quality Certified' },
+];
+
+const GALLERY = [
+  { src: '/images/factory/factory-building.png', label: 'Factory Building', desc: 'Modern factory facility in Chenghai' },
+  { src: '/images/factory/injection-molding.png', label: 'Injection Molding', desc: 'High-precision injection molding machines' },
+  { src: '/images/factory/workshop-crane.png', label: 'Production Workshop', desc: 'Organized workshop with overhead crane' },
+  { src: '/images/factory/raw-material-warehouse.png', label: 'Raw Material Storage', desc: 'Selected virgin plastic materials' },
+  { src: '/images/factory/finished-goods-warehouse.png', label: 'Finished Goods Warehouse', desc: '5,000㎡ finished goods storage' },
+  { src: '/images/factory/showroom-reception.png', label: 'Product Showroom', desc: 'Modern showroom with latest collections' },
+  { src: '/images/factory/showroom-wall.png', label: 'Showroom Display', desc: 'Curated product walls for buyer selection' },
+  { src: '/images/factory/certifications.png', label: 'Certifications', desc: 'BSCI, ISO9001 and product test reports' },
 ];
 
 export default function FactoryPageContent() {
@@ -89,7 +107,7 @@ export default function FactoryPageContent() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <Badge className="mb-4 bg-[#1565FF] text-white">Factory Network</Badge>
+            <Badge className="mb-4 bg-[#1565FF] text-white">Our Factory</Badge>
             <h1 className="text-4xl font-black leading-tight md:text-5xl lg:text-6xl">
               Chenghai Toy Manufacturing
               <br />
@@ -99,8 +117,8 @@ export default function FactoryPageContent() {
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-white/70">
               Based in Chenghai, Shantou — the world&apos;s toy manufacturing
-              capital. We coordinate a vetted network of partner factories to
-              deliver quality products at competitive prices.
+              capital. Our own 20,000sqm factory delivers quality toys at
+              competitive prices.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
@@ -129,10 +147,77 @@ export default function FactoryPageContent() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <div className="text-3xl font-black text-[#1565FF] md:text-4xl">
+                <div className="text-2xl font-black text-[#1565FF] md:text-4xl">
                   {stat.value}
                 </div>
                 <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-8 grid grid-cols-2 gap-6 border-t border-border/50 pt-8 md:grid-cols-4">
+            {PRODUCTION_STATS.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-xl font-black text-[#FF7A00] md:text-2xl">
+                  {stat.value}
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Factory Gallery */}
+      <section className="w-full bg-white py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center md:mb-16"
+          >
+            <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-[#1565FF]">
+              Our Facility
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl lg:text-5xl">
+              Inside Our Factory
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
+              A 20,000㎡ modern factory with injection molding, assembly lines,
+              a 5,000㎡ warehouse, and a dedicated product showroom.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {GALLERY.map((item, i) => (
+              <motion.div
+                key={item.src}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
+                className="group relative overflow-hidden rounded-xl bg-[#F5F7FA]"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <div className="text-sm font-bold text-white">{item.label}</div>
+                  <div className="mt-0.5 text-xs text-white/70">{item.desc}</div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -153,7 +238,7 @@ export default function FactoryPageContent() {
               Capabilities
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl">
-              Production & Sourcing Capabilities
+              Production Capabilities
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
               A comprehensive manufacturing ecosystem covering the entire toy
@@ -204,7 +289,7 @@ export default function FactoryPageContent() {
                 Our Approach
               </span>
               <h2 className="text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl">
-                Factory Coordination
+                In-House Production
                 <br />
                 That Actually Works.
               </h2>
@@ -217,7 +302,7 @@ export default function FactoryPageContent() {
 
               <ul className="mt-6 space-y-3">
                 {[
-                  'Vetted partner factory network with verified track records',
+                  'Our own production lines with verified track records',
                   'On-site production monitoring and progress reporting',
                   'Multi-stage quality inspections before, during, and after production',
                   'Consolidation services for multi-supplier orders',
@@ -274,7 +359,7 @@ export default function FactoryPageContent() {
                     Partner Network
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    200+ vetted factories across toy categories
+                    Our own 20,000sqm factory across toy categories
                   </div>
                 </CardContent>
               </Card>

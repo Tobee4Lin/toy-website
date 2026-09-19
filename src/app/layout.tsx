@@ -8,13 +8,13 @@ const SITE_URL = 'https://www.toysourcingpartner.com';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
-    template: '%s | Toy Sourcing Partner',
+    default: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
+    template: '%s | Levich Toys',
   },
   description:
-    'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital. OEM/ODM, wholesale supply and global export.',
+    'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital. OEM/ODM, wholesale supply and global export.',
   keywords: [
-    'toy sourcing',
+    'toy manufacturing',
     'Chenghai toys',
     'beach toys',
     'bubble toys',
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     'China toy supplier',
     'OEM toys',
   ],
-  authors: [{ name: 'Toy Sourcing Partner' }],
-  creator: 'Toy Sourcing Partner',
-  publisher: 'Toy Sourcing Partner',
+  authors: [{ name: 'Levich Toys' }],
+  creator: 'Levich Toys',
+  publisher: 'Levich Toys',
   formatDetection: {
     email: false,
     address: false,
@@ -37,17 +37,17 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'Toy Sourcing Partner',
-    title: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
+    siteName: 'Levich Toys',
+    title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
-      'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
-    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Toy Sourcing Partner — Chenghai Toy Manufacturer & Wholesale Supplier' }],
+      'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
+    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Levich Toys — Chenghai Toy Manufacturer & Wholesale Supplier' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
+    title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
-      'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
+      'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
     images: ['/og-image.svg'],
   },
   robots: {

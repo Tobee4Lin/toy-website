@@ -4,12 +4,12 @@ import PrivacyPolicyContent from '@/components/sections/PrivacyPolicyContent';
 import { breadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Toy Sourcing Partner',
+  title: 'Privacy Policy | Levich Toys',
   description:
-    'Our privacy policy explains how we collect, use, and protect your personal information when you use our toy sourcing website and services.',
-  keywords: ['privacy policy', 'data protection', 'toy sourcing privacy'],
+    'Our privacy policy explains how we collect, use, and protect your personal information when you use our toy manufacturing website and services.',
+  keywords: ['privacy policy', 'data protection', 'toy manufacturing privacy'],
   openGraph: {
-    title: 'Privacy Policy | Toy Sourcing Partner',
+    title: 'Privacy Policy | Levich Toys',
     description:
       'Our privacy policy explains how we collect, use, and protect your personal information.',
     url: '/privacy-policy',

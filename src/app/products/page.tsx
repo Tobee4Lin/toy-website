@@ -16,13 +16,13 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'All Products | Chenghai Toy Sourcing and Wholesale',
+    title: 'All Products | Chenghai Toy Manufacturing and Wholesale',
     description:
       'Browse our complete toy product range from Chenghai, China: beach toys, bubble toys, remote control toys and building blocks. Request quotes, download catalog and source directly.',
     keywords: ['all toys', 'beach toys', 'bubble toys', 'RC toys', 'building blocks', 'wholesale', 'Chenghai'],
     alternates: { canonical: '/products' },
     openGraph: {
-      title: 'All Products | Chenghai Toy Sourcing and Wholesale',
+      title: 'All Products | Chenghai Toy Manufacturing and Wholesale',
       description:
         'Browse our complete toy product range from Chenghai, China: beach toys, bubble toys, remote control toys and building blocks.',
       type: 'website',

@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'toy_sourcing_selection';
+const STORAGE_KEY = 'toy_selection';
 
 export interface SelectionItem {
   productId: string;

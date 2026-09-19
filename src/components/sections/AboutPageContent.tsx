@@ -9,6 +9,7 @@ import {
   Send,
   Check,
   Briefcase,
+  Factory as FactoryIcon,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -31,7 +32,7 @@ const VALUES = [
   {
     icon: Lightbulb,
     title: 'Solution-Driven',
-    desc: 'We don\'t just take orders — we solve problems. Our team proactively finds better ways to make your products.',
+    desc: "We don't just take orders — we solve problems. Our team proactively finds better ways to make your products.",
   },
   {
     icon: Heart,
@@ -40,11 +41,29 @@ const VALUES = [
   },
 ];
 
-const TEAM = [
-  { name: 'Michael Chen', role: 'Founder & CEO', avatar: 'MC' },
-  { name: 'Sarah Zhang', role: 'Head of Sourcing', avatar: 'SZ' },
-  { name: 'David Wang', role: 'Engineering Manager', avatar: 'DW' },
-  { name: 'Emily Liu', role: 'Quality Director', avatar: 'EL' },
+const FACTORY_STATS = [
+  { value: '2015', label: 'Founded' },
+  { value: '10+', label: 'Years Experience' },
+  { value: '20,000㎡', label: 'Factory Area' },
+  { value: '5,000㎡', label: 'Warehouse' },
+];
+
+const PRODUCTION_STATS = [
+  { value: '7 days', label: 'Sample Lead Time' },
+  { value: '20-25 days', label: 'Mass Production' },
+  { value: 'BSCI', label: 'Audited Factory' },
+  { value: 'ISO9001', label: 'Quality Certified' },
+];
+
+const GALLERY = [
+  { src: '/images/factory/factory-building.png', label: 'Factory Building', desc: 'Modern factory facility in Chenghai' },
+  { src: '/images/factory/injection-molding.png', label: 'Injection Molding', desc: 'High-precision injection molding machines' },
+  { src: '/images/factory/workshop-crane.png', label: 'Production Workshop', desc: 'Organized workshop with overhead crane' },
+  { src: '/images/factory/raw-material-warehouse.png', label: 'Raw Material Storage', desc: 'Selected virgin plastic materials' },
+  { src: '/images/factory/finished-goods-warehouse.png', label: 'Finished Goods Warehouse', desc: '5,000㎡ finished goods storage' },
+  { src: '/images/factory/showroom-reception.png', label: 'Product Showroom', desc: 'Modern showroom with latest collections' },
+  { src: '/images/factory/showroom-wall.png', label: 'Showroom Display', desc: 'Curated product walls for buyer selection' },
+  { src: '/images/factory/certifications.png', label: 'Certifications', desc: 'BSCI, ISO9001 and product test reports' },
 ];
 
 export default function AboutPageContent() {
@@ -75,19 +94,21 @@ export default function AboutPageContent() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <Badge className="mb-4 bg-[#FF7A00] text-white">About Us</Badge>
+            <Badge className="mb-4 bg-[#FF7A00] text-white">
+              <FactoryIcon className="mr-1 size-3" />
+              About Our Factory
+            </Badge>
             <h1 className="text-4xl font-black leading-tight md:text-5xl lg:text-6xl">
-              Your Toy Sourcing Partner
+              Toy Manufacturing Since
               <br />
               <span className="bg-gradient-to-r from-[#FF7A00] to-[#FFC400] bg-clip-text text-transparent">
-                in Chenghai, China.
+                2015 — in Chenghai.
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-white/70">
-              We help toy brands, importers, and wholesalers worldwide source
-              quality toys from China&apos;s toy capital. With deep industry
-              knowledge, a vetted factory network, and a commitment to quality,
-              we make international toy sourcing simple and reliable.
+              A 20,000㎡ BSCI &amp; ISO9001 certified factory in Shantou&apos;s
+              toy capital. We help brands worldwide source quality toys with
+              7-day sampling, 20-25 day production, and end-to-end quality control.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
@@ -100,6 +121,46 @@ export default function AboutPageContent() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="w-full border-b border-border bg-white py-12">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {FACTORY_STATS.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-2xl font-black text-[#1565FF] md:text-4xl">
+                  {stat.value}
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-8 grid grid-cols-2 gap-6 border-t border-border/50 pt-8 md:grid-cols-4">
+            {PRODUCTION_STATS.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-xl font-black text-[#FF7A00] md:text-2xl">
+                  {stat.value}
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -121,15 +182,14 @@ export default function AboutPageContent() {
             <div className="mt-6 space-y-4 text-muted-foreground">
               <p>
                 Located in Chenghai, Shantou — widely known as the &quot;Toy City of
-                China&quot; — we grew up surrounded by toy factories, plastic
-                molding machines, and creative product developers. This unique
-                vantage point gives us an insider&apos;s perspective on the toy
-                industry that you simply can&apos;t get from an office halfway around
-                the world.
+                China&quot; — we&apos;ve been manufacturing toys since 2015. What
+                started as a single injection molding line has grown into a
+                20,000㎡ factory with a 5,000㎡ warehouse, a product showroom, and
+                a team of engineers and QC specialists.
               </p>
               <p>
-                We started with a simple belief: that toy sourcing should be
-                transparent, reliable, and actually enjoyable. Too many buyers
+                We started with a simple belief: that toy manufacturing should
+                be transparent, reliable, and actually enjoyable. Too many buyers
                 have been burned by quality issues, communication problems, and
                 broken promises. We set out to do it differently.
               </p>
@@ -138,8 +198,7 @@ export default function AboutPageContent() {
                 Middle East, and beyond. We don&apos;t just sell products — we
                 coordinate the entire process, from product selection and
                 customization to production monitoring, quality control, and
-                shipping. We&apos;re your eyes, ears, and hands on the ground in
-                China.
+                shipping.
               </p>
               <p className="font-medium text-[#071A2D]">
                 Our mission is simple: help great toy companies build great
@@ -150,8 +209,58 @@ export default function AboutPageContent() {
         </div>
       </section>
 
-      {/* Values */}
+      {/* Factory Gallery */}
       <section className="w-full bg-[#F5F7FA] py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center md:mb-16"
+          >
+            <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-[#1565FF]">
+              Inside Our Factory
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl">
+              Take a Look Around
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Injection molding, assembly lines, raw material and finished goods
+              warehouses, plus a dedicated product showroom.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {GALLERY.map((item, i) => (
+              <motion.div
+                key={item.src}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
+                className="group relative overflow-hidden rounded-xl bg-white"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <div className="text-sm font-bold text-white">{item.label}</div>
+                  <div className="mt-0.5 text-xs text-white/70">{item.desc}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="w-full bg-white py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -198,7 +307,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* What We Do */}
-      <section className="w-full bg-white py-20 md:py-28">
+      <section className="w-full bg-[#F5F7FA] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -223,7 +332,7 @@ export default function AboutPageContent() {
             {[
               {
                 icon: Briefcase,
-                title: 'Product Sourcing',
+                title: 'Custom Manufacturing',
                 desc: 'Find the right products from the right factories. We leverage our deep Chenghai network to source efficiently.',
                 items: [
                   'Product search & factory matching',
@@ -290,57 +399,11 @@ export default function AboutPageContent() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="w-full bg-[#F5F7FA] py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6 }}
-            className="mb-12 text-center md:mb-16"
-          >
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-[#FF7A00]">
-              Meet the Team
-            </span>
-            <h2 className="text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl">
-              People Behind the Products
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              An experienced team of toy industry professionals, ready to help
-              your business succeed.
-            </p>
-          </motion.div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {TEAM.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <Card className="text-center transition-all hover:-translate-y-1 hover:shadow-lg">
-                  <CardContent className="p-6">
-                    <div className="mx-auto mb-4 flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-[#1565FF] to-[#0d47a1] text-2xl font-bold text-white">
-                      {member.avatar}
-                    </div>
-                    <h3 className="font-bold text-[#071A2D]">{member.name}</h3>
-                    <p className="text-sm text-muted-foreground">{member.role}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="w-full bg-[#071A2D] py-16">
         <div className="mx-auto max-w-4xl px-4 text-center md:px-6">
           <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Ready to Work With a Sourcing Partner You Can Trust?
+            Ready to Work With a Factory You Can Trust?
           </h2>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button

@@ -209,7 +209,7 @@ export default function GlobalMarketSection() {
               {REGIONS.find((r) => r.id === activeRegion)?.name}
             </h3>
             <p className="mb-6 text-sm text-muted-foreground">
-              Select a region to explore key markets and sourcing opportunities.
+              Select a region to explore key markets and manufacturing opportunities.
             </p>
             {activeMarkets.length > 0 ? (
               <div className="space-y-3">

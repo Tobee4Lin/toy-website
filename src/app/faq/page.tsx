@@ -4,20 +4,20 @@ import FaqPageContent from '@/components/sections/FaqPageContent';
 import { faqSchema, breadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
-  title: 'FAQ | Toy Sourcing, OEM, Shipping & Payment Questions',
+  title: 'FAQ | Toy Manufacturing, OEM, Shipping & Payment Questions',
   description:
-    'Frequently asked questions about toy sourcing from Chenghai, China. MOQ, lead times, OEM/ODM, payment terms, shipping methods, certifications and sample policies.',
+    'Frequently asked questions about toy manufacturing from Chenghai, China. MOQ, lead times, OEM/ODM, payment terms, shipping methods, certifications and sample policies.',
   keywords: [
-    'toy sourcing FAQ',
+    'toy manufacturing FAQ',
     'toy wholesale questions',
     'OEM toy FAQ',
     'shipping toys from China',
     'toy payment terms',
   ],
   openGraph: {
-    title: 'FAQ | Toy Sourcing, OEM, Shipping & Payment Questions',
+    title: 'FAQ | Toy Manufacturing, OEM, Shipping & Payment Questions',
     description:
-      'Frequently asked questions about toy sourcing from Chenghai, China. MOQ, lead times, OEM/ODM, payment terms, shipping methods, certifications and sample policies.',
+      'Frequently asked questions about toy manufacturing from Chenghai, China. MOQ, lead times, OEM/ODM, payment terms, shipping methods, certifications and sample policies.',
     url: '/faq',
   },
 };

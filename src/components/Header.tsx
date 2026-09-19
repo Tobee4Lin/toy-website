@@ -1,7 +1,8 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Download,
@@ -10,7 +11,6 @@ import {
   Menu,
   X,
   ChevronDown,
-  HeartHandshake,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -23,9 +23,7 @@ const NAV_ITEMS = [
   { label: 'Home', path: '/' },
   { label: 'Products', path: '/products', hasDropdown: true },
   { label: 'OEM', path: '/oem' },
-  { label: 'Factory', path: '/factory' },
-  { label: 'Quality', path: '/quality' },
-  { label: 'About', path: '/about' },
+  { label: 'About Us', path: '/about' },
   { label: 'Blog', path: '/blog' },
   { label: 'Contact', path: '/contact' },
 ];
@@ -59,7 +57,7 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b border-white/5 bg-[#071A2D]/80 backdrop-blur-xl transition-all duration-300"
+      className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#071A2D]/80 backdrop-blur-xl transition-all duration-300"
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
         {/* Logo */}
@@ -68,12 +66,14 @@ export default function Header() {
           className="flex items-center gap-2 text-white"
           onClick={() => setMobileOpen(false)}
         >
-          <div className="flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#1565FF] to-[#FF7A00] font-bold text-white">
-            <HeartHandshake className="size-5" />
-          </div>
-          <span className="text-sm font-bold uppercase tracking-wider text-white md:text-base">
-            {config.brandName}
-          </span>
+          <Image
+            src="/images/logo-horizontal-v2.png"
+            alt="Levich Toys"
+            width={180}
+            height={48}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
