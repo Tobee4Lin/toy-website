@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -168,7 +168,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
           <p className="text-xs text-white/40">
-            漏 {new Date().getFullYear()} {config.companyName}. All rights reserved.
+            &copy; {new Date().getFullYear()} Levich Toys. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             {config.socialLinks.facebook && (

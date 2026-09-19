@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
@@ -30,11 +30,6 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: 'Where is your company located?',
     answer: 'We are based in Chenghai District, Shantou, Guangdong — known as China\'s "Toy Capital." Chenghai is home to thousands of toy manufacturers and a complete toy industry supply chain, allowing us to source and coordinate production efficiently.',
-    category: 'general',
-  },
-  {
-    question: 'Do you own all the factories?',
-    answer: 'We work with a carefully selected network of our production lines in the Chenghai area. This model gives our clients access to a broader range of products and production capabilities than any single factory could provide. We handle quality control, production coordination, and communication so you only need one point of contact.',
     category: 'general',
   },
   {

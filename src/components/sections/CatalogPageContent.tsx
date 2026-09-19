@@ -42,7 +42,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const HIGHLIGHTS = [
-  { icon: Box, title: '500+ Products', desc: 'Across 4 major toy categories' },
+  { icon: Box, title: '200+ Products', desc: 'Across 4 major toy categories' },
   { icon: Award, title: 'Certified Quality', desc: 'EN71, ASTM, CPSIA, CE ready' },
   { icon: Sparkles, title: 'OEM Capable', desc: 'Full customization options' },
 ];
@@ -175,7 +175,7 @@ export default function CatalogPageContent() {
                       <div className="h-16 w-12 rounded-md bg-white/10" />
                     </div>
                     <div className="text-xs text-white/40">
-                      © {new Date().getFullYear()} YOUR BRAND NAME
+                      © {new Date().getFullYear()} Levich Toys
                     </div>
                   </div>
                 </div>
@@ -218,12 +218,9 @@ export default function CatalogPageContent() {
                     'Bubble Toys - Manual & Electric',
                     'Remote Control Vehicles',
                     'Building & Construction Blocks',
-                    'Educational & STEM Toys',
-                    'Outdoor & Sport Toys',
                     'OEM Customization Options',
                     'Packaging & MOQ Details',
                     'Quality & Certification Info',
-                    'Order & Shipping Guide',
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-sm">
                       <Check className="size-4 shrink-0 text-[#1565FF]" />
