@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/AppContext';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { trackEvent } from '@/lib/analytics';
+import Ribbons from '@/components/effects/Ribbons';
+import LineWaves from '@/components/effects/LineWaves';
 
 export default function FinalCtaSection() {
   const { openRfqDialog, openCatalogDialog, config } = useApp();
@@ -33,8 +35,8 @@ export default function FinalCtaSection() {
   return (
     <section className="relative w-full overflow-hidden bg-[#071A2D] py-20 md:py-28">
       {/* Background decorations */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(21_101_255_0.25),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(255_122_0_0.2),transparent_50%)]" />
+      <Ribbons color1="#1565FF" color2="#FF7A00" />
+      <LineWaves color="#1565FF" rows={4} />
       <div
         className="absolute inset-0 opacity-5"
         style={{

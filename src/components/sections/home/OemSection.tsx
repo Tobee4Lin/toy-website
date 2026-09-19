@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import MagicRings from '@/components/effects/MagicRings';
 
 const PROCESS_STEPS = [
   { icon: Lightbulb, title: 'Idea', desc: 'Share your concept or product brief.' },
@@ -37,8 +38,10 @@ const CUSTOM_OPTIONS = [
 
 export default function OemSection() {
   return (
-    <section className="w-full bg-[#071A2D] py-20 text-white md:py-28">
-      <div className="mx-auto max-w-7xl px-4 md:px-6">
+    <section className="relative w-full overflow-hidden bg-[#071A2D] py-20 text-white md:py-28">
+      <MagicRings color="#FF7A00" size={300} className="left-[-80px] top-1/2 -translate-y-1/2" />
+      <MagicRings color="#1565FF" size={200} className="right-[-40px] bottom-10" />
+      <div className="relative mx-auto max-w-7xl px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

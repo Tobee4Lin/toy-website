@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 import { Image } from '@/components/ui/image';
+import ShapeGrid from '@/components/effects/ShapeGrid';
 import type { ICategory } from '@/data/categories';
 import type { IProduct } from '@/data/products';
 
@@ -20,8 +21,9 @@ export default function ProductUniverseSection({ categories, products }: Product
   };
 
   return (
-    <section className="w-full bg-[#F5F7FA] py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-4 md:px-6">
+    <section className="relative w-full overflow-hidden bg-[#F5F7FA] py-20 md:py-28">
+      <ShapeGrid color="#1565FF" />
+      <div className="relative mx-auto max-w-7xl px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

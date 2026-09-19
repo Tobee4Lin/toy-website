@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Factory, Lightbulb, Settings, Globe2 } from 'lucide-react';
+import MagnetLines from '@/components/effects/MagnetLines';
 
 const FEATURES = [
   {
@@ -50,8 +51,9 @@ const item = {
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="w-full bg-white py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-4 md:px-6">
+    <section className="relative w-full bg-white py-20 md:py-28">
+      <MagnetLines rows={4} columns={15} lineColor="#1565FF" lineWidth={1} />
+      <div className="relative mx-auto max-w-7xl px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/AppContext';
 import { Image } from '@/components/ui/image';
 import { trackEvent } from '@/lib/analytics';
+import Aurora from '@/components/effects/Aurora';
+import BlurText from '@/components/effects/BlurText';
+import ShinyText from '@/components/effects/ShinyText';
 
 const HERO_IMAGE = '/images/hero-bg.jpg';
 
@@ -184,7 +187,7 @@ export default function HeroSection() {
 
   return (
     <section className="relative w-full overflow-hidden bg-[#071A2D] text-white">
-      {/* Background gradient + image */}
+      {/* Background gradient + image + Aurora */}
       <div className="absolute inset-0">
         <Image
           src={HERO_IMAGE}
@@ -192,8 +195,7 @@ export default function HeroSection() {
           className="h-full w-full object-cover opacity-20"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#071A2D] via-[#071A2D]/90 to-[#071A2D]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(21_101_255_0.25),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(255_122_0_0.15),transparent_50%)]" />
+        <Aurora colorStops={['#071A2D', '#1565FF', '#FF7A00']} speed={0.4} />
       </div>
 
       {/* Floating decorative shapes (right side) */}
@@ -210,22 +212,27 @@ export default function HeroSection() {
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
               <Sparkles className="size-3.5 text-[#FFC400]" />
-              Your Toy Sourcing Partner in Chenghai, China
+              <ShinyText text="Your Toy Sourcing Partner in Chenghai, China" />
             </div>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
             className="mb-6 text-4xl font-black leading-[1.05] tracking-tight md:text-6xl lg:text-7xl"
           >
-            PLAY BEYOND
+            <BlurText text="PLAY BEYOND" />
             <br />
-            <span className="bg-gradient-to-r from-[#1565FF] via-[#FF7A00] to-[#FFC400] bg-clip-text text-transparent">
+            <motion.span
+              initial={{ opacity: 0, filter: 'blur(12px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="bg-gradient-to-r from-[#1565FF] via-[#FF7A00] to-[#FFC400] bg-clip-text text-transparent"
+            >
               LIMITS.
-            </span>
-          </motion.h1>
+            </motion.span>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
