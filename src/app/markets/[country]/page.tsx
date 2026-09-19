@@ -37,10 +37,14 @@ export async function generateMetadata({ params }: MarketPageProps): Promise<Met
     title,
     description,
     keywords: [market.country, 'toy sourcing', market.region, 'toy import', 'wholesale toys'],
+    alternates: {
+      canonical: `/markets/${market.slug}`,
+    },
     openGraph: {
       title,
       description,
       type: 'website',
+      url: `/markets/${market.slug}`,
     },
   };
 }

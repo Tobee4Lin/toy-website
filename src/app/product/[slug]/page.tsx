@@ -45,11 +45,15 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
     title,
     description,
     keywords: [product.name, product.itemNumber, product.categoryLabel, 'wholesale', 'Chenghai', 'toy sourcing'],
+    alternates: {
+      canonical: `/product/${product.slug}`,
+    },
     openGraph: {
       title,
       description,
       type: 'website',
-      images: product.imageUrl ? [{ url: product.imageUrl }] : undefined,
+      url: `/product/${product.slug}`,
+      images: product.imageUrl ? [{ url: product.imageUrl, alt: product.name }] : undefined,
     },
   };
 }

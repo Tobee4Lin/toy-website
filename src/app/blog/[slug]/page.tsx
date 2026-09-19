@@ -45,11 +45,15 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     title,
     description,
     keywords: ['toy industry', 'sourcing', post.category],
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title,
       description,
       type: 'article',
-      images: post.coverImage ? [{ url: post.coverImage }] : undefined,
+      url: `/blog/${post.slug}`,
+      images: post.coverImage ? [{ url: post.coverImage, alt: post.title }] : undefined,
       publishedTime: post.date,
       authors: post.author,
     },

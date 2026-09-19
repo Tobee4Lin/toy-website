@@ -43,10 +43,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     title,
     description,
     keywords: [cat.name, cat.slug, 'wholesale', 'Chenghai', 'toy sourcing'],
+    alternates: {
+      canonical: `/products/${cat.slug}`,
+    },
     openGraph: {
       title,
       description,
       type: 'website',
+      url: `/products/${cat.slug}`,
     },
   };
 }

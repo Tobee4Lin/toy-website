@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       'Toy industry insights, sourcing guides, product trends, safety standards and China sourcing tips. Learn how to import toys from Chenghai, China.',
     keywords: ['toy industry blog', 'toy sourcing guide', 'China toy import', 'toy market trends', 'toy safety standards', 'Chenghai toy market'],
+    alternates: { canonical: '/blog' },
     openGraph: {
       title: 'Blog | Toy Industry Insights, Sourcing Guides & Market Trends',
       description:

@@ -41,14 +41,14 @@ export const metadata: Metadata = {
     title: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
       'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Toy Sourcing Partner' }],
+    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Toy Sourcing Partner — Chenghai Toy Manufacturer & Wholesale Supplier' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Toy Sourcing Partner | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
       'Your trusted toy sourcing partner in Chenghai, China. Source beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.svg'],
   },
   robots: {
     index: true,
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  alternates: {},
+  manifest: '/manifest.webmanifest',
+  themeColor: '#071A2D',
 };
 
 export default function RootLayout({

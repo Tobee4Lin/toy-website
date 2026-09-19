@@ -73,9 +73,9 @@ export default function ProductInquiryCard({ product }: ProductInquiryCardProps)
           <Badge variant="outline" className="mb-3">
             {product.categoryLabel}
           </Badge>
-          <h1 className="mb-2 text-xl font-bold text-[#071A2D]">
+          <h2 className="mb-2 text-xl font-bold text-[#071A2D]">
             {product.name}
-          </h1>
+          </h2>
           <div className="mb-4 text-sm text-muted-foreground">
             Item No.{' '}
             <span className="font-mono font-semibold text-[#071A2D]">
