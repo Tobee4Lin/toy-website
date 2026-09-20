@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Image } from '@/components/ui/image';
@@ -20,28 +20,9 @@ export default function ProductGallery({
   certifications = [],
 }: ProductGalleryProps) {
   const [activeImage, setActiveImage] = useState(0);
-  const [dragStartX, setDragStartX] = useState<number | null>(null);
-  const [dragStartImage, setDragStartImage] = useState(0);
 
-  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    setDragStartX(clientX);
-    setDragStartImage(activeImage);
-  };
-
-  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (dragStartX === null || images.length <= 1) return;
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const delta = clientX - dragStartX;
-    const steps = Math.round(delta / 50);
-    const total = images.length;
-    const next = ((dragStartImage + steps) % total + total) % total;
-    setActiveImage(next);
-  };
-
-  const handleDragEnd = () => {
-    setDragStartX(null);
-  };
+  const prev = () => setActiveImage(i => (i - 1 + images.length) % images.length);
+  const next = () => setActiveImage(i => (i + 1) % images.length);
 
   return (
     <div className="grid gap-6 md:grid-cols-[120px_1fr]">
@@ -62,12 +43,8 @@ export default function ProductGallery({
         ))}
       </div>
 
-      {/* Main image with drag-to-rotate */}
-      <div
-        className="relative select-none overflow-hidden rounded-2xl border border-border/50 bg-muted"
-        onMouseMove={handleDragMove}
-        onTouchMove={handleDragMove}
-      >
+      {/* Main image */}
+      <div className="relative select-none overflow-hidden rounded-2xl border border-border/50 bg-muted">
         <Image
           src={images[activeImage]}
           alt={productName}
@@ -90,28 +67,30 @@ export default function ProductGallery({
             </Badge>
           ))}
         </div>
-        {/* Drag-to-rotate hint */}
-        <div
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
-          onMouseUp={handleDragEnd}
-          onMouseLeave={handleDragEnd}
-          onTouchEnd={handleDragEnd}
-          className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-grab items-center gap-1.5 rounded-full bg-black/60 px-4 py-1.5 text-xs text-white backdrop-blur-sm active:cursor-grabbing"
-        >
-          <svg
-            className="size-3"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 18l6-6-6-6" />
-            <path d="M15 18l6-6-6-6" />
-          </svg>
-          Drag to rotate · {images.length} views
+
+        {/* Prev/Next arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="size-5" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight className="size-5" />
+            </button>
+          </>
+        )}
+
+        {/* Counter */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-1.5 text-xs text-white backdrop-blur-sm">
+          {activeImage + 1} / {images.length}
         </div>
       </div>
     </div>

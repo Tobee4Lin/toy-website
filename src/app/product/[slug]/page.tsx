@@ -69,8 +69,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     notFound();
   }
 
-  const galleryImages =
-    product.galleryImages.length > 0 ? product.galleryImages : [product.imageUrl];
+  const galleryImages = product.imageUrl
+    ? [product.imageUrl, ...product.galleryImages]
+    : product.galleryImages;
 
   const relatedProducts = allProducts.filter(
     (p) => p.category === product.category && p.id !== product.id,
