@@ -244,8 +244,8 @@ export default function HeroSection() {
             <span className="font-semibold text-white">Reliable Manufacturing.</span>{' '}
             <span className="font-semibold text-white">Global Supply.</span>
             <br className="hidden md:block" />
-            We connect international buyers with the best Chenghai toy factories —
-            delivering quality products, OEM flexibility, and dependable logistics.
+            We manufacture quality toys in our own Chenghai factory —
+            delivering OEM flexibility and dependable logistics to global customers.
           </motion.p>
 
           <motion.div

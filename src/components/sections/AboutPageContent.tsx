@@ -333,12 +333,12 @@ export default function AboutPageContent() {
               {
                 icon: Briefcase,
                 title: 'Custom Manufacturing',
-                desc: 'Find the right products from the right factories. We leverage our deep Chenghai network to source efficiently.',
+                desc: 'Manufacture quality toys in-house. From mold design to finished packaging under one roof.',
                 items: [
-                  'Product search & factory matching',
-                  'Sample procurement',
-                  'Price negotiation',
-                  'Factory vetting & audits',
+                  'Custom mold development',
+                  'Color & material selection',
+                  'In-house quality control',
+                  'Flexible MOQ support',
                 ],
               },
               {

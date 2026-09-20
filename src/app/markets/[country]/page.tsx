@@ -345,8 +345,7 @@ export default async function MarketPage({ params }: MarketPageProps) {
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-white/70">
             Tell us about your business and the products you&apos;re looking for.
-            We&apos;ll help you find the right toys from Chenghai&apos;s
-            manufacturing base.
+            We&apos;ll help you find the right toys from our Chenghai factory.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <MarketWhatsAppButton

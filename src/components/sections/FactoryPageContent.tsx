@@ -25,7 +25,7 @@ const CAPABILITIES = [
   {
     icon: Search,
     title: 'Custom Manufacturing',
-    desc: 'Access thousands of toy products across Chenghai. We find the right factory, verify quality, and negotiate the best terms.',
+    desc: 'Browse our in-house product range. Every item is manufactured, quality-checked and packaged on our production lines.',
   },
   {
     icon: Settings,

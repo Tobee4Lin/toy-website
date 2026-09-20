@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -35,7 +35,7 @@ const formSchema = z.object({
   company: z.string().min(2, 'Company name is required'),
   country: z.string().min(2, 'Country is required'),
   email: z.string().email('Please enter a valid email'),
-  whatsapp: z.string().optional(),
+  whatsapp: z.string().min(5, 'WhatsApp is required'),
   category: z.string().optional(),
   quantity: z.string().optional(),
   customization: z.string().optional(),
@@ -55,6 +55,8 @@ const CATEGORIES = [
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<FormValues>({
@@ -65,7 +67,7 @@ export default function ContactForm() {
       country: '',
       email: '',
       whatsapp: '',
-      category: 'all',
+      category: 'all-categories',
       quantity: '',
       customization: '',
       message: '',
@@ -75,8 +77,24 @@ export default function ContactForm() {
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
     try {
+      // Upload attachments first
+      const attachments: Array<{ name: string; url: string }> = [];
+      for (const file of selectedFiles) {
+        const fd = new FormData();
+        fd.append('file', file);
+        const base = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+          const res = await fetch(`${base}/api/upload`, { method: 'POST', body: fd });
+        if (res.ok) {
+          const data = await res.json();
+          attachments.push({ name: file.name, url: data.url });
+        }
+      }
+
       await submitInquiry({
         ...values,
+        estimatedQuantity: values.quantity,
+        customizationRequirement: values.customization,
+        attachments,
         source: 'contact_page',
         pageUrl: typeof window !== 'undefined' ? window.location.href : '',
       });
@@ -115,6 +133,7 @@ export default function ContactForm() {
               onClick={() => {
                 setSubmitted(false);
                 form.reset();
+                setSelectedFiles([]);
               }}
               variant="outline"
             >
@@ -142,7 +161,7 @@ export default function ContactForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name *</FormLabel>
+                        <FormLabel>Full Name <span className="text-red-500">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="John Smith" {...field} />
                         </FormControl>
@@ -155,7 +174,7 @@ export default function ContactForm() {
                     name="company"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Company Name *</FormLabel>
+                        <FormLabel>Company Name <span className="text-red-500">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="Your Company Ltd." {...field} />
                         </FormControl>
@@ -171,7 +190,7 @@ export default function ContactForm() {
                     name="country"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Country *</FormLabel>
+                        <FormLabel>Country <span className="text-red-500">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="United States" {...field} />
                         </FormControl>
@@ -184,7 +203,7 @@ export default function ContactForm() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email *</FormLabel>
+                        <FormLabel>Email <span className="text-red-500">*</span></FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -204,25 +223,9 @@ export default function ContactForm() {
                     name="whatsapp"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>WhatsApp (optional)</FormLabel>
+                        <FormLabel>WhatsApp <span className="text-red-500">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="+1 555 000 0000" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="quantity"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Estimated Quantity (optional)</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="e.g. 5,000 pcs"
-                            {...field}
-                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -278,10 +281,10 @@ export default function ContactForm() {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="not-sure">Not sure yet</SelectItem>
-                            <SelectItem value="logo">Logo printing</SelectItem>
-                            <SelectItem value="color">Color change</SelectItem>
-                            <SelectItem value="packaging">Custom packaging</SelectItem>
-                            <SelectItem value="full-oem">Full OEM / custom mold</SelectItem>
+                            <SelectItem value="Logo printing">Logo printing</SelectItem>
+                            <SelectItem value="Color change">Color change</SelectItem>
+                            <SelectItem value="Custom packaging">Custom packaging</SelectItem>
+                            <SelectItem value="Full OEM / custom mold">Full OEM / custom mold</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -295,7 +298,7 @@ export default function ContactForm() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your Message *</FormLabel>
+                      <FormLabel>Your Message <span className="text-red-500">*</span></FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Tell us about your project, product interests, timeline, or any questions you have..."
@@ -308,15 +311,47 @@ export default function ContactForm() {
                   )}
                 />
 
-                {/* File upload placeholder */}
-                <div className="rounded-xl border border-dashed border-border bg-muted/30 p-6 text-center">
-                  <Upload className="mx-auto mb-2 size-6 text-muted-foreground" />
-                  <p className="text-sm font-medium text-[#071A2D]">
-                    Attach files (optional)
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Reference images, sketches, spec sheets. Max 10MB each.
-                  </p>
+                {/* File upload */}
+                <div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    multiple
+                    className="hidden"
+                    accept="image/*,.pdf,.doc,.docx"
+                    onChange={(e) => {
+                      const files = Array.from(e.target.files || []);
+                      setSelectedFiles((prev) => [...prev, ...files].slice(0, 5));
+                    }}
+                  />
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="cursor-pointer rounded-xl border border-dashed border-border bg-muted/30 p-6 text-center transition-colors hover:border-[#1565FF]/50 hover:bg-muted/50"
+                  >
+                    <Upload className="mx-auto mb-2 size-6 text-muted-foreground" />
+                    <p className="text-sm font-medium text-[#071A2D]">
+                      Attach files (optional)
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Reference images, sketches, spec sheets. Max 10MB each.
+                    </p>
+                  </div>
+                  {selectedFiles.length > 0 && (
+                    <div className="mt-2 space-y-1">
+                      {selectedFiles.map((file, i) => (
+                        <div key={i} className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-1.5 text-xs">
+                          <span className="truncate">{file.name}</span>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedFiles((prev) => prev.filter((_, idx) => idx !== i))}
+                            className="ml-2 text-muted-foreground hover:text-red-500"
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

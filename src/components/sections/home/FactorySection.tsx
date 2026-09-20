@@ -10,7 +10,7 @@ import { Image } from '@/components/ui/image';
 const FACTORY_IMAGE = '/images/factory/factory-building.png';
 
 const CAPABILITIES = [
-  { icon: Search, title: 'Custom Manufacturing', desc: 'Find the right factory at the right price.' },
+  { icon: Search, title: 'Custom Manufacturing', desc: 'Custom molds and colors at competitive prices.' },
   { icon: Monitor, title: 'Production Monitoring', desc: 'Real-time updates on your orders.' },
   { icon: Factory, title: 'Injection Molding', desc: 'Precision plastic manufacturing.' },
   { icon: Package, title: 'Assembly & Packaging', desc: 'End-to-end production coordination.' },

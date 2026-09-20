@@ -144,27 +144,6 @@ export default function Header() {
           </Link>
 
           <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleCatalogClick}
-            className="hidden text-white/80 hover:bg-white/10 hover:text-white md:inline-flex"
-          >
-            <Download className="mr-1.5 size-4" />
-            Catalog
-          </Button>
-
-          <a
-            href={buildWhatsAppUrl(config.whatsapp, 'Hello! I am interested in your toy products.')}
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleWhatsAppClick}
-            className="hidden rounded-md p-2 text-white/70 transition-colors hover:text-[#25D366] md:block"
-            aria-label="WhatsApp"
-          >
-            <MessageCircle className="size-5" />
-          </a>
-
-          <Button
             size="sm"
             onClick={handleRequestQuote}
             className="hidden bg-[#FF7A00] text-white hover:bg-[#FF7A00]/90 md:inline-flex"

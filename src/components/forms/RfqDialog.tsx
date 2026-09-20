@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
-import { Loader2, Send, X } from 'lucide-react';
+import { useState, useRef, type FormEvent } from 'react';
+import { Loader2, Send, X, Upload, Paperclip } from 'lucide-react';
 
 import {
   Dialog,
@@ -47,13 +47,14 @@ export default function RfqDialog({
   const { closeRfqDialog, config } = useApp();
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
     name: '',
     company: '',
     country: '',
     email: '',
     whatsapp: '',
-    estimatedQuantity: '',
     message: '',
   });
 
@@ -63,6 +64,19 @@ export default function RfqDialog({
 
     setSubmitting(true);
     try {
+      // Upload attachments first
+      const attachments: Array<{ name: string; url: string }> = [];
+      for (const file of selectedFiles) {
+        const fd = new FormData();
+        fd.append('file', file);
+        const base = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+        const res = await fetch(`${base}/api/upload`, { method: 'POST', body: fd });
+        if (res.ok) {
+          const data = await res.json();
+          attachments.push({ name: file.name, url: data.url });
+        }
+      }
+
       const payload: InquiryPayload = {
         ...form,
         productName: prefill?.productName,
@@ -70,6 +84,7 @@ export default function RfqDialog({
         category: prefill?.category,
         pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
         selectedProducts,
+        attachments,
         source,
       };
 
@@ -92,21 +107,22 @@ export default function RfqDialog({
 
   const handleClose = () => {
     onOpenChange(false);
-    // Reset after animation
     setTimeout(() => {
       setSubmitted(false);
+      setSelectedFiles([]);
       setForm({
         name: '',
         company: '',
         country: '',
         email: '',
         whatsapp: '',
-        estimatedQuantity: '',
         message: '',
       });
       closeRfqDialog();
     }, 200);
   };
+
+  const redStar = <span className="text-red-500">*</span>;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -187,7 +203,7 @@ export default function RfqDialog({
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label htmlFor="rfq-name">Name *</Label>
+                <Label htmlFor="rfq-name">Name {redStar}</Label>
                 <Input
                   id="rfq-name"
                   required
@@ -197,7 +213,7 @@ export default function RfqDialog({
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="rfq-company">Company *</Label>
+                <Label htmlFor="rfq-company">Company {redStar}</Label>
                 <Input
                   id="rfq-company"
                   required
@@ -210,7 +226,7 @@ export default function RfqDialog({
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label htmlFor="rfq-country">Country *</Label>
+                <Label htmlFor="rfq-country">Country {redStar}</Label>
                 <Input
                   id="rfq-country"
                   required
@@ -220,7 +236,7 @@ export default function RfqDialog({
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="rfq-email">Email *</Label>
+                <Label htmlFor="rfq-email">Email {redStar}</Label>
                 <Input
                   id="rfq-email"
                   type="email"
@@ -232,29 +248,17 @@ export default function RfqDialog({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="rfq-whatsapp">WhatsApp</Label>
-                <Input
-                  id="rfq-whatsapp"
-                  value={form.whatsapp}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, whatsapp: e.target.value }))
-                  }
-                  placeholder="+86 138 ..."
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="rfq-qty">Est. Quantity</Label>
-                <Input
-                  id="rfq-qty"
-                  value={form.estimatedQuantity}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, estimatedQuantity: e.target.value }))
-                  }
-                  placeholder="e.g. 5000 pcs"
-                />
-              </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="rfq-whatsapp">WhatsApp {redStar}</Label>
+              <Input
+                id="rfq-whatsapp"
+                required
+                value={form.whatsapp}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, whatsapp: e.target.value }))
+                }
+                placeholder="+86 138 ..."
+              />
             </div>
 
             <div className="space-y-1.5">
@@ -266,6 +270,53 @@ export default function RfqDialog({
                 onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                 placeholder="Tell us about your requirements..."
               />
+            </div>
+
+            {/* File upload */}
+            <div className="space-y-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*,.pdf,.doc,.docx"
+                className="hidden"
+                onChange={(e) => {
+                  const files = Array.from(e.target.files || []);
+                  setSelectedFiles((prev) => [...prev, ...files].slice(0, 5));
+                  if (fileInputRef.current) fileInputRef.current.value = '';
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex w-full cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-border bg-muted/30 p-6 text-center transition-colors hover:border-[#1565FF]/50 hover:bg-muted/50"
+              >
+                <Upload className="size-5 text-muted-foreground" />
+                <span className="text-sm font-medium">Attach files (optional)</span>
+                <span className="text-xs text-muted-foreground">
+                  Reference images, sketches, spec sheets. Max 10MB each.
+                </span>
+              </button>
+              {selectedFiles.length > 0 && (
+                <div className="space-y-1">
+                  {selectedFiles.map((file, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 rounded bg-muted/50 px-3 py-1.5 text-sm"
+                    >
+                      <Paperclip className="size-3.5 text-muted-foreground" />
+                      <span className="flex-1 truncate">{file.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedFiles((prev) => prev.filter((_, idx) => idx !== i))}
+                        className="text-muted-foreground hover:text-red-500"
+                      >
+                        <X className="size-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <Button
