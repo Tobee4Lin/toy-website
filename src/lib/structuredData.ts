@@ -18,7 +18,7 @@ export function organizationSchema() {
     description: COMPANY_DESC,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Chenghai, Shantou',
+      addressLocality: 'Chenghai District, Shantou City',
       addressRegion: 'Guangdong',
       addressCountry: 'CN',
     },

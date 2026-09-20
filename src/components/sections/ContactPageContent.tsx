@@ -42,7 +42,7 @@ const CONTACT_INFO = [
   {
     icon: MapPin,
     title: 'Office',
-    value: 'Chenghai, Shantou, Guangdong, China',
+    value: 'Huafu Fuhua South Road, Guangyi Subdistrict, Chenghai District, Shantou City',
     desc: 'In the heart of China\'s toy industry',
     href: '#',
   },

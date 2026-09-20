@@ -28,7 +28,7 @@ export const MOCK_SITE_CONFIG: ISiteConfig = {
   email: 'sales@yourbrand.com',
   whatsapp: '8613538618656',
   phone: '+86 754 0000 0000',
-  address: 'Chenghai, Shantou, Guangdong, China',
+  address: 'Huafu Fuhua South Road, Guangyi Subdistrict, Chenghai District, Shantou City, Guangdong, China',
   websiteUrl: 'https://www.yourbrand.com',
   socialLinks: {
     facebook: 'https://facebook.com/yourbrand',
