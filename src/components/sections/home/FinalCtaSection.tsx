@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Download, MessageCircle, Send } from 'lucide-react';
+import { MessageCircle, Send } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/AppContext';
@@ -11,16 +11,11 @@ import Ribbons from '@/components/effects/Ribbons';
 import LineWaves from '@/components/effects/LineWaves';
 
 export default function FinalCtaSection() {
-  const { openRfqDialog, openCatalogDialog, config } = useApp();
+  const { openRfqDialog, config } = useApp();
 
   const handleQuote = () => {
     trackEvent('request_quote_click', { source: 'final_cta' });
     openRfqDialog();
-  };
-
-  const handleCatalog = () => {
-    trackEvent('catalog_form_open', { source: 'final_cta' });
-    openCatalogDialog('final_cta');
   };
 
   const handleWhatsApp = () => {
@@ -75,15 +70,6 @@ export default function FinalCtaSection() {
             >
               <Send className="mr-2 size-4" />
               Request a Quote
-            </Button>
-            <Button
-              size="lg"
-              onClick={handleCatalog}
-              variant="outline"
-              className="border-white/20 bg-white/5 text-white hover:bg-white/10"
-            >
-              <Download className="mr-2 size-4" />
-              Download Catalog
             </Button>
             <Button
               size="lg"
