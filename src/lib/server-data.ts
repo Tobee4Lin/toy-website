@@ -57,6 +57,7 @@ function adaptProduct(api: ApiProduct): IProduct {
     imageUrl: resolveUrl(api.imageUrl),
     galleryImages: (api.gallery || []).map(resolveUrl),
     certifications: api.certifications || [],
+    specifications: api.specifications || {},
     isFeatured: api.isFeatured || false,
   };
 }

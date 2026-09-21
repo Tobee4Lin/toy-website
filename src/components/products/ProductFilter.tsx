@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
@@ -6,7 +6,6 @@ import { Search, Filter } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Slider } from '@/components/ui/slider';
 import {
   Select,
   SelectContent,
@@ -21,14 +20,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import ProductCard from '@/components/products/ProductCard';
 import type { IProduct } from '@/data/products';
 import type { ICategory } from '@/data/categories';
@@ -46,9 +37,6 @@ export default function ProductFilter({ products, categories, activeCategory }: 
 
   const [keyword, setKeyword] = useState('');
   const [sortBy, setSortBy] = useState('default');
-  const [maxMoq, setMaxMoq] = useState<number>(2000);
-  const [customOnly, setCustomOnly] = useState(false);
-  const [selectedAge, setSelectedAge] = useState<string[]>([]);
 
   const filtered = useMemo(() => {
     let items: IProduct[] = [...products];
@@ -67,16 +55,6 @@ export default function ProductFilter({ products, categories, activeCategory }: 
       );
     }
 
-    if (customOnly) {
-      items = items.filter((p) => p.customizable);
-    }
-
-    items = items.filter((p) => p.moq <= maxMoq);
-
-    if (selectedAge.length > 0) {
-      items = items.filter((p) => selectedAge.includes(p.ageRange));
-    }
-
     switch (sortBy) {
       case 'moq-asc':
         items.sort((a, b) => a.moq - b.moq);
@@ -92,7 +70,7 @@ export default function ProductFilter({ products, categories, activeCategory }: 
     }
 
     return items;
-  }, [products, activeCategory, keyword, sortBy, maxMoq, customOnly, selectedAge]);
+  }, [products, activeCategory, keyword, sortBy]);
 
   const FilterContent = (
     <div className="space-y-6">
@@ -129,63 +107,6 @@ export default function ProductFilter({ products, categories, activeCategory }: 
         </div>
       </div>
 
-      {/* MOQ */}
-      <div>
-        <h3 className="mb-3 text-sm font-semibold text-[#071A2D]">
-          Max MOQ: {maxMoq.toLocaleString()} pcs
-        </h3>
-        <Slider
-          value={[maxMoq]}
-          onValueChange={(v) => setMaxMoq(v[0])}
-          max={2000}
-          step={100}
-          min={100}
-          className="w-full"
-        />
-      </div>
-
-      {/* Customization */}
-      <div className="flex items-center space-x-3">
-        <Checkbox
-          id="custom-only"
-          checked={customOnly}
-          onCheckedChange={(c) => setCustomOnly(!!c)}
-        />
-        <Label htmlFor="custom-only" className="text-sm">
-          Customizable only
-        </Label>
-      </div>
-
-      {/* Age Group */}
-      <Accordion type="single" collapsible defaultValue="age">
-        <AccordionItem value="age" className="border-0">
-          <AccordionTrigger className="text-sm font-semibold text-[#071A2D] hover:no-underline">
-            Age Group
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2 pt-2">
-              {AGE_GROUPS.map((age) => (
-                <div key={age} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`age-${age}`}
-                    checked={selectedAge.includes(age)}
-                    onCheckedChange={(c) => {
-                      if (c) {
-                        setSelectedAge((p) => [...p, age]);
-                      } else {
-                        setSelectedAge((p) => p.filter((a) => a !== age));
-                      }
-                    }}
-                  />
-                  <Label htmlFor={`age-${age}`} className="text-sm font-normal">
-                    {age}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
     </div>
   );
 

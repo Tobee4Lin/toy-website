@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { memo, useState } from 'react';
 import Link from 'next/link';
@@ -79,11 +79,11 @@ function ProductCard({ product, variant = 'default' }: ProductCardProps) {
       onMouseLeave={() => setHovered(false)}
     >
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-muted">
+        <div className="relative aspect-[4/3] overflow-hidden bg-white">
           <Image
             src={product.imageUrl}
             alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
           />
 
           {/* Top badges */}
@@ -136,7 +136,7 @@ function ProductCard({ product, variant = 'default' }: ProductCardProps) {
             className={`absolute right-3 top-3 flex size-9 items-center justify-center rounded-full transition-all ${
               selected
                 ? 'bg-[#FF7A00] text-white'
-                : 'bg-white/90 text-[#071A2D]/60 hover:bg-white hover:text-[#FF7A00]'
+                : 'bg-white/90 border border-gray-300 text-[#071A2D]/60 hover:bg-white hover:text-[#FF7A00]'
             }`}
             aria-label={selected ? 'Remove from selection' : 'Add to selection'}
           >

@@ -196,52 +196,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                           </td>
                           <td className="px-4 py-2.5 font-mono">{product.itemNumber}</td>
                         </tr>
-                        <tr>
-                          <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
-                            Category
-                          </td>
-                          <td className="px-4 py-2.5">{product.categoryLabel}</td>
-                        </tr>
-                        <tr>
-                          <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
-                            MOQ
-                          </td>
-                          <td className="px-4 py-2.5">
-                            {product.moq.toLocaleString()} pcs
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
-                            Age Range
-                          </td>
-                          <td className="px-4 py-2.5">{product.ageRange}</td>
-                        </tr>
-                        <tr>
-                          <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
-                            Lead Time
-                          </td>
-                          <td className="px-4 py-2.5">{product.leadTime}</td>
-                        </tr>
-                        <tr>
-                          <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
-                            Customizable
-                          </td>
-                          <td className="px-4 py-2.5">
-                            {product.customizable ? (
-                              <span className="text-[#1565FF]">Yes — OEM available</span>
-                            ) : (
-                              'Limited (logo only)'
-                            )}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
-                            Certifications
-                          </td>
-                          <td className="px-4 py-2.5">
-                            {product.certifications.join(' · ')}
-                          </td>
-                        </tr>
+                        {product.specifications &&
+                          Object.entries(product.specifications).map(([key, value]) => (
+                            <tr key={key}>
+                              <td className="bg-muted/30 px-4 py-2.5 font-medium text-muted-foreground">
+                                {key}
+                              </td>
+                              <td className="px-4 py-2.5">{value}</td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
