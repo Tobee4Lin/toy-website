@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import { z } from 'zod';
 import { Download, Loader2, CheckCircle } from 'lucide-react';
 
 import {
@@ -15,6 +16,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useApp } from '@/context/AppContext';
 import { submitLead, type LeadPayload } from '@/lib/api/lead';
+import {
+  nameField,
+  companyField,
+  countryField,
+  emailField,
+  whatsappOptionalField,
+} from '@/lib/validation';
 import { trackEvent } from '@/lib/analytics';
 import { toast } from 'sonner';
 
@@ -25,6 +33,17 @@ interface CatalogDialogProps {
   category?: string;
 }
 
+type CatalogFields = {
+  name: string;
+  company: string;
+  country: string;
+  email: string;
+  whatsapp: string;
+  productInterest: string;
+};
+
+type FieldErrors = Partial<Record<keyof CatalogFields, string>>;
+
 export default function CatalogDialog({
   open,
   onOpenChange,
@@ -34,7 +53,8 @@ export default function CatalogDialog({
   const { closeCatalogDialog, config } = useApp();
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [form, setForm] = useState<CatalogFields>({
     name: '',
     company: '',
     country: '',
@@ -43,31 +63,58 @@ export default function CatalogDialog({
     productInterest: category || '',
   });
 
+  const updateField = (key: keyof CatalogFields, value: string) => {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => ({ ...e, [key]: undefined }));
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (submitting) return;
 
+    // Validate required customer fields.
+    const catalogSchema = z.object({
+      name: nameField,
+      company: companyField,
+      country: countryField,
+      email: emailField,
+      whatsapp: whatsappOptionalField,
+    });
+    const parsed = catalogSchema.safeParse(form);
+    if (!parsed.success) {
+      const next: FieldErrors = {};
+      for (const issue of parsed.error.issues) {
+        const key = issue.path[0] as keyof CatalogFields;
+        if (key && !next[key]) next[key] = issue.message;
+      }
+      setErrors(next);
+      toast.error('Please correct the highlighted fields.');
+      return;
+    }
+    const clean = parsed.data;
+
     setSubmitting(true);
     try {
       const payload: LeadPayload = {
-        ...form,
+        ...clean,
+        productInterest: form.productInterest,
         sourcePage: source,
         category,
       };
 
-      const result = await submitLead(payload);
+      const res = await submitLead(payload);
 
-      if (result.success) {
+      if (res.success) {
         trackEvent('catalog_download', { source, success: true });
         setSubmitted(true);
         toast.success('Catalog is ready for download!');
         // Trigger download in new tab
-        if (result.downloadUrl) {
-          window.open(result.downloadUrl, '_blank', 'noopener,noreferrer');
+        if (res.downloadUrl) {
+          window.open(res.downloadUrl, '_blank', 'noopener,noreferrer');
         }
       } else {
         trackEvent('catalog_download', { source, success: false });
-        toast.error(result.message);
+        toast.error(res.message);
       }
     } catch {
       toast.error('Failed to process. Please try again.');
@@ -80,6 +127,7 @@ export default function CatalogDialog({
     onOpenChange(false);
     setTimeout(() => {
       setSubmitted(false);
+      setErrors({});
       setForm({
         name: '',
         company: '',
@@ -91,6 +139,12 @@ export default function CatalogDialog({
       closeCatalogDialog();
     }, 200);
   };
+
+  const errorClass = (key: keyof CatalogFields) =>
+    errors[key] ? 'border-red-500 focus-visible:ring-red-500/30' : '';
+
+  const FieldError = ({ k }: { k: keyof CatalogFields }) =>
+    errors[k] ? <p className="text-xs text-red-500">{errors[k]}</p> : null;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -127,29 +181,29 @@ export default function CatalogDialog({
             <Button onClick={handleClose}>Close</Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <form onSubmit={handleSubmit} className="space-y-3.5" noValidate>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label htmlFor="cat-name">Name *</Label>
                 <Input
                   id="cat-name"
-                  required
+                  className={errorClass('name')}
                   value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  onChange={(e) => updateField('name', e.target.value)}
                   placeholder="Your name"
                 />
+                <FieldError k="name" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="cat-company">Company *</Label>
                 <Input
                   id="cat-company"
-                  required
+                  className={errorClass('company')}
                   value={form.company}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, company: e.target.value }))
-                  }
+                  onChange={(e) => updateField('company', e.target.value)}
                   placeholder="Company name"
                 />
+                <FieldError k="company" />
               </div>
             </div>
 
@@ -158,24 +212,24 @@ export default function CatalogDialog({
                 <Label htmlFor="cat-country">Country *</Label>
                 <Input
                   id="cat-country"
-                  required
+                  className={errorClass('country')}
                   value={form.country}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, country: e.target.value }))
-                  }
+                  onChange={(e) => updateField('country', e.target.value)}
                   placeholder="Your country"
                 />
+                <FieldError k="country" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="cat-email">Email *</Label>
                 <Input
                   id="cat-email"
                   type="email"
-                  required
+                  className={errorClass('email')}
                   value={form.email}
-                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  onChange={(e) => updateField('email', e.target.value)}
                   placeholder="you@company.com"
                 />
+                <FieldError k="email" />
               </div>
             </div>
 
@@ -184,21 +238,19 @@ export default function CatalogDialog({
                 <Label htmlFor="cat-whatsapp">WhatsApp</Label>
                 <Input
                   id="cat-whatsapp"
+                  className={errorClass('whatsapp')}
                   value={form.whatsapp}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, whatsapp: e.target.value }))
-                  }
+                  onChange={(e) => updateField('whatsapp', e.target.value)}
                   placeholder="+86 138 ..."
                 />
+                <FieldError k="whatsapp" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="cat-interest">Product Interest</Label>
                 <Input
                   id="cat-interest"
                   value={form.productInterest}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, productInterest: e.target.value }))
-                  }
+                  onChange={(e) => updateField('productInterest', e.target.value)}
                   placeholder="e.g. Beach Toys"
                 />
               </div>

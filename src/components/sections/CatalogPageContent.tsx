@@ -1,104 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { motion } from 'framer-motion';
-import { Download, Check, Sparkles, BookOpen, Box, Award } from 'lucide-react';
+import { Check, Sparkles, Box, Award } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { submitLead } from '@/lib/api/lead';
-import { trackEvent } from '@/lib/analytics';
-import { toast } from 'sonner';
-
-const formSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  company: z.string().min(2, 'Company name is required'),
-  country: z.string().min(2, 'Country is required'),
-  email: z.string().email('Please enter a valid email'),
-  whatsapp: z.string().optional(),
-  interest: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof formSchema>;
 
 const HIGHLIGHTS = [
   { icon: Box, title: '200+ Products', desc: 'Across 4 major toy categories' },
-  { icon: Award, title: 'Certified Quality', desc: 'EN71, ASTM, CPSIA, CE ready' },
+  { icon: Award, title: 'Certified Quality', desc: 'BSCI and ISO9001 audited factory' },
   { icon: Sparkles, title: 'OEM Capable', desc: 'Full customization options' },
 ];
 
-const CATEGORIES = [
-  'Not sure yet',
-  'Beach Toys',
-  'Bubble Toys',
-  'RC Toys',
-  'Building Blocks',
-  'All categories',
-];
-
 export default function CatalogPageContent() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
-
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      company: '',
-      country: '',
-      email: '',
-      whatsapp: '',
-      interest: 'not-sure',
-    },
-  });
-
-  const onSubmit = async (values: FormValues) => {
-    setIsSubmitting(true);
-    try {
-      await submitLead({
-        name: values.name,
-        company: values.company,
-        country: values.country,
-        email: values.email,
-        whatsapp: values.whatsapp,
-        productInterest: values.interest,
-        sourcePage: 'catalog_page',
-      });
-      trackEvent('catalog_download', { source: 'catalog_page' });
-      setDownloaded(true);
-      toast.success('Catalog is ready to download!');
-    } catch (error) {
-      console.error('Catalog lead capture failed:', String(error));
-      toast.error('Something went wrong. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleDownload = () => {
-    toast.success('Download started!');
-  };
-
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
@@ -119,12 +35,9 @@ export default function CatalogPageContent() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <Badge className="mb-4 bg-[#FF7A00] text-white">
-              <Download className="mr-1 size-3" />
-              2026 Toy Catalog
-            </Badge>
+            <Badge className="mb-4 bg-[#FF7A00] text-white">2026 Toy Catalog</Badge>
             <h1 className="text-4xl font-black md:text-5xl lg:text-6xl">
-              Download Our Complete
+              Our Complete
               <br />
               <span className="bg-gradient-to-r from-[#FF7A00] to-[#FFC400] bg-clip-text text-transparent">
                 Toy Catalog
@@ -154,9 +67,7 @@ export default function CatalogPageContent() {
                 <div className="aspect-[3/4] overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-[#071A2D] to-[#1a3654] shadow-xl">
                   <div className="flex h-full flex-col justify-between p-8">
                     <div>
-                      <Badge className="mb-4 bg-[#FF7A00] text-white">
-                        2026 Edition
-                      </Badge>
+                      <Badge className="mb-4 bg-[#FF7A00] text-white">2026 Edition</Badge>
                       <h2 className="text-3xl font-black text-white md:text-4xl">
                         TOY
                         <br />
@@ -187,7 +98,7 @@ export default function CatalogPageContent() {
               </h2>
 
               <div className="mb-8 grid gap-4 sm:grid-cols-3">
-                {HIGHLIGHTS.map((item, i) => {
+                {HIGHLIGHTS.map((item) => {
                   const Icon = item.icon;
                   return (
                     <Card key={item.title} className="h-full">
@@ -231,7 +142,7 @@ export default function CatalogPageContent() {
               </div>
             </motion.div>
 
-            {/* Right: Lead capture form */}
+            {/* Right: Contact CTA */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -241,26 +152,38 @@ export default function CatalogPageContent() {
             >
               <Card className="border-2 border-[#1565FF]/20 shadow-lg">
                 <CardContent className="p-6 md:p-8">
-                  {downloaded ? (
-                    <div className="py-8 text-center">
-                      <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-[#1565FF]/10">
-                        <Check className="size-8 text-[#1565FF]" />
-                      </div>
-                      <h3 className="mb-2 text-xl font-bold text-[#071A2D]">
-                        Thank You!
-                      </h3>
-                      <p className="mb-6 text-sm text-muted-foreground">
-                        Your catalog is ready. We&apos;ve also sent a copy to your
-                        email.
-                      </p>
-                        </form>
-                      </Form>
+                  <h3 className="text-xl font-bold text-[#071A2D]">
+                    Request the Catalog
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Send us your product requirements and our team will share the
+                    latest catalog and quotation with you.
+                  </p>
 
-                      <p className="mt-4 text-center text-xs text-muted-foreground">
-                        Free for qualified B2B buyers. No credit card required.
-                      </p>
-                    </>
-                  )}
+                  <ul className="mt-6 space-y-3 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-0.5 size-4 shrink-0 text-[#1565FF]" />
+                      <span>Full product range with photos and specifications</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-0.5 size-4 shrink-0 text-[#1565FF]" />
+                      <span>OEM &amp; packaging customization details</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-0.5 size-4 shrink-0 text-[#1565FF]" />
+                      <span>Direct factory pricing and MOQ information</span>
+                    </li>
+                  </ul>
+
+                  <Link href="/contact" className="mt-6 block">
+                    <Button className="w-full bg-[#1565FF] hover:bg-[#0b4fd6]">
+                      Contact Our Sales Team
+                    </Button>
+                  </Link>
+
+                  <p className="mt-4 text-center text-xs text-muted-foreground">
+                    We typically reply within 24 hours.
+                  </p>
                 </CardContent>
               </Card>
             </motion.div>

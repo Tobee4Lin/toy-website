@@ -1,4 +1,4 @@
-// Server-side data fetching with ISR revalidate
+﻿// Server-side data fetching with ISR revalidate
 // Adapts API data to frontend types, falls back to static JSON
 
 import { fetchProducts, fetchProductBySlug, fetchCategories, fetchBlogPosts, fetchBlogPostBySlug, type ApiProduct, type ApiCategory, type ApiBlogPost } from './api';
@@ -103,7 +103,7 @@ function adaptBlogPost(api: ApiBlogPost): IBlogPost {
 // Server: fetch all products with fallback to static data
 export async function getProducts(options?: { category?: string; search?: string }): Promise<IProduct[]> {
   try {
-    const res = await fetchProducts({ limit: 200, ...options });
+    const res = await fetchProducts({ limit: 500, ...options });
     return res.items.map(adaptProduct);
   } catch (err) {
     console.warn('[getProducts] API failed, using static data:', err);

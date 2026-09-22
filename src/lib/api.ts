@@ -60,7 +60,8 @@ interface PaginatedResponse<T> {
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${url}`, {
     headers: { 'Content-Type': 'application/json' },
-    next: { revalidate: 3600 },
+    // Data is managed in the admin backend and changes frequently; do not cache.
+    cache: 'no-store',
     ...options,
   });
   if (!res.ok) {

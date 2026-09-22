@@ -1,4 +1,4 @@
-// Inquiry API layer — submits to admin backend
+﻿// Inquiry API layer — submits to admin backend
 // Configure VITE_API_BASE_URL in .env.local to point to your admin server
 // Example: VITE_API_BASE_URL=http://localhost:3000
 
@@ -18,12 +18,11 @@ export interface InquiryPayload {
   pageUrl?: string;
   customizationRequirement?: string;
   file?: File | null;
+  attachments?: Array<{ name: string; url: string }>;
   selectedProducts?: Array<{
-    productName: string;
     itemNumber: string;
-    category: string;
-    quantity?: number;
-    notes?: string;
+    name: string;
+    quantity: number;
   }>;
   source?: string;
 }

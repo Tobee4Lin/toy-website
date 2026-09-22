@@ -27,19 +27,26 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { submitInquiry } from '@/lib/api/inquiry';
+import {
+  nameField,
+  companyField,
+  countryField,
+  emailField,
+  whatsappField,
+} from '@/lib/validation';
 import { trackEvent } from '@/lib/analytics';
 import { toast } from 'sonner';
 
 const formSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  company: z.string().min(2, 'Company name is required'),
-  country: z.string().min(2, 'Country is required'),
-  email: z.string().email('Please enter a valid email'),
-  whatsapp: z.string().min(5, 'WhatsApp is required'),
+  name: nameField,
+  company: companyField,
+  country: countryField,
+  email: emailField,
+  whatsapp: whatsappField,
   category: z.string().optional(),
   quantity: z.string().optional(),
   customization: z.string().optional(),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  message: z.string().trim().min(10, 'Message must be at least 10 characters').max(3000, 'Message is too long'),
 });
 
 type FormValues = z.infer<typeof formSchema>;

@@ -73,9 +73,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     ? [product.imageUrl, ...product.galleryImages]
     : product.galleryImages;
 
-  const relatedProducts = allProducts.filter(
-    (p) => p.category === product.category && p.id !== product.id,
-  );
+  const relatedProducts = allProducts
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 8);
 
   const productJsonLd = JSON.stringify(
     productSchema({

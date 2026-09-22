@@ -20,6 +20,7 @@ export interface IProduct {
   imageUrl: string
   galleryImages: string[]
   certifications: string[]
+  specifications?: Record<string, string>
   isFeatured: boolean
 }
 

@@ -1,8 +1,8 @@
 ﻿'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,6 +25,7 @@ import type { IProduct } from '@/data/products';
 import type { ICategory } from '@/data/categories';
 
 const AGE_GROUPS = ['0-3 years', '3+ years', '6+ years', '8+ years', '12+ years'];
+const PAGE_SIZE = 18;
 
 interface ProductFilterProps {
   products: IProduct[];
@@ -37,6 +38,7 @@ export default function ProductFilter({ products, categories, activeCategory }: 
 
   const [keyword, setKeyword] = useState('');
   const [sortBy, setSortBy] = useState('default');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filtered = useMemo(() => {
     let items: IProduct[] = [...products];
@@ -71,6 +73,39 @@ export default function ProductFilter({ products, categories, activeCategory }: 
 
     return items;
   }, [products, activeCategory, keyword, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(currentPage, totalPages);
+  const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+
+  // Reset to first page whenever the result set changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, keyword, sortBy]);
+
+  useEffect(() => {
+    if (currentPage !== safePage) setCurrentPage(safePage);
+  }, [safePage, currentPage]);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Build page number list (always show first/last, ellipsis for large ranges)
+  const pageNumbers = useMemo(() => {
+    const pages: Array<number | 'ellipsis'> = [];
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || Math.abs(i - safePage) <= 1) {
+        pages.push(i);
+      } else if (pages[pages.length - 1] !== 'ellipsis') {
+        pages.push('ellipsis');
+      }
+    }
+    return pages;
+  }, [totalPages, safePage]);
 
   const FilterContent = (
     <div className="space-y-6">
@@ -183,11 +218,60 @@ export default function ProductFilter({ products, categories, activeCategory }: 
                 </p>
               </div>
             ) : (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {filtered.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {pageItems.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+
+                {totalPages > 1 && (
+                  <div className="mt-10 flex flex-col items-center gap-3">
+                    <div className="flex items-center gap-1.5">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="size-9"
+                        disabled={safePage === 1}
+                        onClick={() => goToPage(safePage - 1)}
+                        aria-label="Previous page"
+                      >
+                        <ChevronLeft className="size-4" />
+                      </Button>
+                      {pageNumbers.map((p, idx) =>
+                        p === 'ellipsis' ? (
+                          <span key={`e-${idx}`} className="px-2 text-muted-foreground">
+                            …
+                          </span>
+                        ) : (
+                          <Button
+                            key={p}
+                            variant={p === safePage ? 'default' : 'outline'}
+                            size="icon"
+                            className="size-9"
+                            onClick={() => goToPage(p)}
+                          >
+                            {p}
+                          </Button>
+                        ),
+                      )}
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="size-9"
+                        disabled={safePage === totalPages}
+                        onClick={() => goToPage(safePage + 1)}
+                        aria-label="Next page"
+                      >
+                        <ChevronRight className="size-4" />
+                      </Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Page {safePage} of {totalPages}
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

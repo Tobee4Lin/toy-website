@@ -16,6 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useApp } from '@/context/AppContext';
 import { submitInquiry, type InquiryPayload } from '@/lib/api/inquiry';
+import { customerSchema } from '@/lib/validation';
 import { trackEvent } from '@/lib/analytics';
 import { toast } from 'sonner';
 
@@ -37,6 +38,26 @@ interface RfqDialogProps {
   source?: string;
 }
 
+type CustomerFields = {
+  name: string;
+  company: string;
+  country: string;
+  email: string;
+  whatsapp: string;
+  message: string;
+};
+
+const EMPTY_FORM: CustomerFields = {
+  name: '',
+  company: '',
+  country: '',
+  email: '',
+  whatsapp: '',
+  message: '',
+};
+
+type FieldErrors = Partial<Record<keyof CustomerFields, string>>;
+
 export default function RfqDialog({
   open,
   onOpenChange,
@@ -48,19 +69,32 @@ export default function RfqDialog({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [errors, setErrors] = useState<FieldErrors>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState({
-    name: '',
-    company: '',
-    country: '',
-    email: '',
-    whatsapp: '',
-    message: '',
-  });
+  const [form, setForm] = useState<CustomerFields>(EMPTY_FORM);
+
+  const updateField = (key: keyof CustomerFields, value: string) => {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => ({ ...e, [key]: undefined }));
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (submitting) return;
+
+    // Validate customer fields before any upload / request.
+    const parsed = customerSchema.safeParse(form);
+    if (!parsed.success) {
+      const next: FieldErrors = {};
+      for (const issue of parsed.error.issues) {
+        const key = issue.path[0] as keyof CustomerFields;
+        if (key && !next[key]) next[key] = issue.message;
+      }
+      setErrors(next);
+      toast.error('Please correct the highlighted fields.');
+      return;
+    }
+    const clean = parsed.data;
 
     setSubmitting(true);
     try {
@@ -78,12 +112,16 @@ export default function RfqDialog({
       }
 
       const payload: InquiryPayload = {
-        ...form,
+        ...clean,
         productName: prefill?.productName,
         itemNumber: prefill?.itemNumber,
         category: prefill?.category,
         pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
-        selectedProducts,
+        selectedProducts: selectedProducts?.map((p) => ({
+          itemNumber: p.itemNumber,
+          name: p.productName,
+          quantity: typeof p.quantity === 'number' ? p.quantity : 0,
+        })),
         attachments,
         source,
       };
@@ -110,19 +148,19 @@ export default function RfqDialog({
     setTimeout(() => {
       setSubmitted(false);
       setSelectedFiles([]);
-      setForm({
-        name: '',
-        company: '',
-        country: '',
-        email: '',
-        whatsapp: '',
-        message: '',
-      });
+      setErrors({});
+      setForm(EMPTY_FORM);
       closeRfqDialog();
     }, 200);
   };
 
   const redStar = <span className="text-red-500">*</span>;
+
+  const fieldClass = (key: keyof CustomerFields) =>
+    errors[key] ? 'border-red-500 focus-visible:ring-red-500/30' : '';
+
+  const FieldError = ({ k }: { k: keyof CustomerFields }) =>
+    errors[k] ? <p className="text-xs text-red-500">{errors[k]}</p> : null;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -158,7 +196,7 @@ export default function RfqDialog({
             <Button onClick={handleClose}>Close</Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             {prefill?.productName && (
               <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm">
                 <span className="text-muted-foreground">Product: </span>
@@ -206,21 +244,23 @@ export default function RfqDialog({
                 <Label htmlFor="rfq-name">Name {redStar}</Label>
                 <Input
                   id="rfq-name"
-                  required
+                  className={fieldClass('name')}
                   value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  onChange={(e) => updateField('name', e.target.value)}
                   placeholder="Your name"
                 />
+                <FieldError k="name" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="rfq-company">Company {redStar}</Label>
                 <Input
                   id="rfq-company"
-                  required
+                  className={fieldClass('company')}
                   value={form.company}
-                  onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
+                  onChange={(e) => updateField('company', e.target.value)}
                   placeholder="Company name"
                 />
+                <FieldError k="company" />
               </div>
             </div>
 
@@ -229,22 +269,24 @@ export default function RfqDialog({
                 <Label htmlFor="rfq-country">Country {redStar}</Label>
                 <Input
                   id="rfq-country"
-                  required
+                  className={fieldClass('country')}
                   value={form.country}
-                  onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))}
+                  onChange={(e) => updateField('country', e.target.value)}
                   placeholder="Your country"
                 />
+                <FieldError k="country" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="rfq-email">Email {redStar}</Label>
                 <Input
                   id="rfq-email"
                   type="email"
-                  required
+                  className={fieldClass('email')}
                   value={form.email}
-                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  onChange={(e) => updateField('email', e.target.value)}
                   placeholder="you@company.com"
                 />
+                <FieldError k="email" />
               </div>
             </div>
 
@@ -252,13 +294,12 @@ export default function RfqDialog({
               <Label htmlFor="rfq-whatsapp">WhatsApp {redStar}</Label>
               <Input
                 id="rfq-whatsapp"
-                required
+                className={fieldClass('whatsapp')}
                 value={form.whatsapp}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, whatsapp: e.target.value }))
-                }
+                onChange={(e) => updateField('whatsapp', e.target.value)}
                 placeholder="+86 138 ..."
               />
+              <FieldError k="whatsapp" />
             </div>
 
             <div className="space-y-1.5">
@@ -266,10 +307,12 @@ export default function RfqDialog({
               <Textarea
                 id="rfq-message"
                 rows={3}
+                className={fieldClass('message')}
                 value={form.message}
-                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                onChange={(e) => updateField('message', e.target.value)}
                 placeholder="Tell us about your requirements..."
               />
+              <FieldError k="message" />
             </div>
 
             {/* File upload */}
