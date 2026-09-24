@@ -8,6 +8,7 @@ import RfqDialog from '@/components/forms/RfqDialog';
 import CatalogDialog from '@/components/forms/CatalogDialog';
 import { useApp } from '@/context/AppContext';
 import { Toaster } from 'sonner';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -32,6 +33,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <ScrollToTop />
+      <AnalyticsTracker />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
