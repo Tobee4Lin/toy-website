@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   }
 
   const title = `${product.name} | ${product.categoryLabel} Wholesale`;
-  const description = product.description || `${product.name} - Source directly from Chenghai, China. Request quote, check MOQ and customization options.`;
+  const description = product.description || `${product.name} - Manufactured in our Chenghai, China factory. Request quote, check MOQ and customization options.`;
 
   return {
     title,
@@ -85,6 +85,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       category: product.categoryLabel,
       itemNumber: product.itemNumber,
       moq: String(product.moq),
+      slug: product.slug,
     }),
   );
   const breadcrumbJsonLd = JSON.stringify(

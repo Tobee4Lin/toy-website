@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'All Products | Chenghai Toy Manufacturing and Wholesale',
     description:
-      'Browse our complete toy product range from Chenghai, China: beach toys, bubble toys, remote control toys and building blocks. Request quotes, download catalog and source directly.',
-    keywords: ['all toys', 'beach toys', 'bubble toys', 'RC toys', 'building blocks', 'wholesale', 'Chenghai'],
+      'Browse our complete toy range manufactured in our Chenghai, China factory: beach toys, bubble toys, remote control toys and building blocks. Request quotes and OEM customization.',
+    keywords: ['all toys', 'beach toys', 'bubble toys', 'RC toys', 'building blocks', 'wholesale', 'Chenghai', 'toy factory'],
     alternates: { canonical: '/products' },
     openGraph: {
       title: 'All Products | Chenghai Toy Manufacturing and Wholesale',
@@ -37,10 +37,10 @@ export default async function ProductsPage() {
   ]);
 
   const pageDesc =
-    'Browse our complete toy product range from Chenghai, China: beach toys, bubble toys, remote control toys and building blocks. Request quotes, download catalog and source directly.';
+    'Complete toy range manufactured in our Chenghai, China factory: beach toys, bubble toys, remote control toys and building blocks. Request quotes and OEM customization.';
 
   const collectionJsonLd = JSON.stringify(
-    collectionPageSchema({ name: 'All Products', description: pageDesc }),
+    collectionPageSchema({ name: 'All Products', slug: '', description: pageDesc }),
   );
   const breadcrumbJsonLd = JSON.stringify(
     breadcrumbSchema([

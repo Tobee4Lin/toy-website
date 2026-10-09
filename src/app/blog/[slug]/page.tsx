@@ -83,6 +83,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       image: post.coverImage,
       category: post.category,
       author: post.author,
+      slug: post.slug,
     }),
   );
   const breadcrumbJsonLd = JSON.stringify(

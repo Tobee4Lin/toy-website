@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { SITE_URL, COMPANY } from '@/lib/site-config';
 
 export interface SEOProps {
   title: string;
@@ -11,9 +12,8 @@ export interface SEOProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const SITE_URL = 'https://www.toysourcingpartner.com';
-const DEFAULT_OG_IMAGE = '/og-image.jpg';
-const SITE_NAME = 'Levich Toys';
+const DEFAULT_OG_IMAGE = COMPANY.ogImage;
+const SITE_NAME = COMPANY.name;
 
 /**
  * useSEO - 动态设置页面 SEO 元信息

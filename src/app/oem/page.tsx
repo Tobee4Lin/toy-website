@@ -6,7 +6,7 @@ import { serviceSchema, faqSchema, breadcrumbSchema } from '@/lib/structuredData
 export const metadata: Metadata = {
   title: 'OEM & ODM Toy Customization | Chenghai Toy Manufacturing',
   description:
-    'Professional OEM and ODM toy customization services from Chenghai, China. Custom logo, packaging, colors, molds and product development for toy importers and brands worldwide.',
+    'Professional OEM and ODM toy customization at our Chenghai, China factory. Custom logo, packaging, colors, molds and product development for brands worldwide.',
   keywords: [
     'OEM toys',
     'ODM toys',

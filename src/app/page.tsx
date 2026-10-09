@@ -47,9 +47,9 @@ export default async function HomePage() {
   const faqJsonLd = JSON.stringify(
     faqSchema([
       {
-        question: 'What products does Levich Toys supply?',
+        question: 'What products does Levich Toys manufacture?',
         answer:
-          'We supply four main toy categories from Chenghai, China: beach toys (sand toys, beach buckets, shovels), bubble toys (bubble wands, bubble guns, bubble machines), remote control toys (RC cars, stunt cars, RC helicopters) and plastic building blocks (educational blocks, STEM blocks, creative construction sets).',
+          'We manufacture four main toy categories at our factory: beach toys (sand toys, beach buckets, shovels), bubble toys (bubble wands, bubble guns, bubble machines), remote control toys (RC cars, stunt cars, RC helicopters) and plastic building blocks (educational blocks, STEM blocks, creative construction sets).',
       },
       {
         question: 'Where is Levich Toys located?',
@@ -59,7 +59,7 @@ export default async function HomePage() {
       {
         question: 'Do you offer OEM and ODM services?',
         answer:
-          'Yes. We support OEM (custom logo, packaging, colors) and ODM (product development, custom molds) for toy importers, distributors, wholesalers and retail chains worldwide.',
+          'Yes. We support OEM (custom logo, packaging, colors) and ODM (product development, custom molds) at our factory, with flexible support for different order requirements.',
       },
       {
         question: 'What is the minimum order quantity for toys?',
@@ -67,20 +67,20 @@ export default async function HomePage() {
           'MOQ varies by product category. Standard items typically start from 100-500 pieces per item. Customized products with new molds may require higher MOQ. Contact us for specific product quotations.',
       },
       {
-        question: 'How do I request a quote or product catalog?',
+        question: 'How do I request a quote?',
         answer:
-          'Use the Request a Quote button on any product page, or visit the Contact page. You can also download our product catalog from the Catalog page. We typically respond within 24 hours.',
+          'Use the Request a Quote button on any product page, or visit the Contact page. We typically respond within 24 hours.',
       },
     ]),
   );
 
   const howToJsonLd = JSON.stringify(
-    howToSchema('How to Source Toys from Chenghai, China', [
-      { name: 'Browse Products', text: 'Explore our product categories: beach toys, bubble toys, RC toys and building blocks.' },
+    howToSchema('How to Order Toys from Our Factory', [
+      { name: 'Browse Products', text: 'Explore our manufactured product categories: beach toys, bubble toys, RC toys and building blocks.' },
       { name: 'Request a Quote', text: 'Submit an inquiry with product details, quantity and customization requirements.' },
-      { name: 'Confirm Samples', text: 'Request samples to verify quality before placing bulk orders.' },
-      { name: 'Production & QC', text: 'We coordinate production and quality inspection in Chenghai factories.' },
-      { name: 'Shipping & Delivery', text: 'Arrange sea/air freight and handle export documentation from China.' },
+      { name: 'Confirm Samples', text: 'We prepare samples within 7 days so you can verify quality before bulk orders.' },
+      { name: 'Production & QC', text: 'Our factory handles production and multi-stage quality inspection.' },
+      { name: 'Shipping & Delivery', text: 'We arrange sea/air freight and prepare export documentation.' },
     ]),
   );
 

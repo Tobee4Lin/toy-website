@@ -37,12 +37,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   }
 
   const title = `${cat.name} Wholesale | Chenghai Toy Manufacturing`;
-  const description = `Source ${cat.name.toLowerCase()} directly from Chenghai, China. ${cat.description || 'Competitive wholesale prices, OEM/ODM customization and reliable export.'}`;
+  const description = `${cat.name} manufactured in our Chenghai, China factory. ${cat.description || 'OEM/ODM customization, reliable quality and export experience.'}`;
 
   return {
     title,
     description,
-    keywords: [cat.name, cat.slug, 'wholesale', 'Chenghai', 'toy manufacturing'],
+    keywords: [cat.name, cat.slug, 'wholesale', 'Chenghai', 'toy manufacturing', 'toy factory'],
     alternates: {
       canonical: `/products/${cat.slug}`,
     },
@@ -72,11 +72,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const categoryProductCount = categoryProducts.length;
   const hasCustomizable = categoryProducts.some((p) => p.customizable);
 
-  const pageDesc = `Source ${cat.name.toLowerCase()} directly from Chenghai, China. ${cat.description || 'Competitive wholesale prices, OEM/ODM customization and reliable export.'}`;
+  const pageDesc = `${cat.name} manufactured in our Chenghai, China factory. ${cat.description || 'OEM/ODM customization, reliable quality and export experience.'}`;
 
   const collectionJsonLd = JSON.stringify(
     collectionPageSchema({
       name: cat.name,
+      slug: cat.slug,
       description: pageDesc,
       products: categoryProducts.map((p) => ({
         name: p.name,

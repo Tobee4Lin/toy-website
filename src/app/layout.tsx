@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Providers from './providers';
 import { organizationSchema, websiteSchema } from '@/lib/structuredData';
-
-const SITE_URL = 'https://www.toysourcingpartner.com';
+import { SITE_URL, COMPANY } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -25,9 +24,9 @@ export const metadata: Metadata = {
     'China toy supplier',
     'OEM toys',
   ],
-  authors: [{ name: 'Levich Toys' }],
-  creator: 'Levich Toys',
-  publisher: 'Levich Toys',
+  authors: [{ name: COMPANY.name }],
+  creator: COMPANY.name,
+  publisher: COMPANY.legalName,
   formatDetection: {
     email: false,
     address: false,
@@ -37,18 +36,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'Levich Toys',
+    siteName: COMPANY.name,
     title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
       'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
-    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Levich Toys — Chenghai Toy Manufacturer & Wholesale Supplier' }],
+    images: [{
+      url: COMPANY.ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Levich Toys — Chenghai Toy Manufacturer & Wholesale Supplier',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',
     description:
       'Your trusted toy manufacturer in Chenghai, China. Manufacture beach toys, bubble toys, remote control toys and building blocks directly from China\'s toy capital.',
-    images: ['/og-image.svg'],
+    images: [COMPANY.ogImage],
   },
   robots: {
     index: true,
@@ -60,7 +64,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {},
+  alternates: {
+    canonical: '/',
+  },
   manifest: '/manifest.webmanifest',
   themeColor: '#071A2D',
 };

@@ -1,27 +1,30 @@
 /**
- * 结构化数据生成器（Schema.org JSON-LD）
- * 用于 GEO（Generative Engine Optimization）和传统 SEO
- * 帮助 AI 搜索引擎（ChatGPT、Perplexity、Google AI Overview）理解页面内容
+ * Structured data generators (Schema.org JSON-LD)
+ * Supports GEO (Generative Engine Optimization) and traditional SEO.
  */
 
-const SITE_URL = 'https://www.toysourcingpartner.com';
-const COMPANY_NAME = 'Levich Toys';
-const COMPANY_DESC = 'Your trusted toy manufacturer in Chenghai, China. Specializing in beach toys, bubble toys, remote control toys and building blocks. OEM/ODM, wholesale supply and global export.';
+import { SITE_URL, COMPANY, getFullAddress, getSocialLinks } from './site-config';
 
 /** Organization Schema */
 export function organizationSchema() {
+  const socialLinks = getSocialLinks();
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: COMPANY_NAME,
+    name: COMPANY.legalName,
+    alternateName: COMPANY.name,
     url: SITE_URL,
-    description: COMPANY_DESC,
+    logo: `${SITE_URL}${COMPANY.logoUrl}`,
+    description:
+      'Toy manufacturer in Chenghai, China. Specializing in beach toys, bubble toys, remote control toys and building blocks. OEM/ODM, wholesale supply and global export.',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Chenghai District, Shantou City',
-      addressRegion: 'Guangdong',
-      addressCountry: 'CN',
+      streetAddress: COMPANY.address.street,
+      addressLocality: COMPANY.address.city,
+      addressRegion: COMPANY.address.region,
+      addressCountry: COMPANY.address.country,
     },
+    foundingDate: String(COMPANY.foundedYear),
     areaServed: 'Worldwide',
     knowsAbout: [
       'Beach Toys',
@@ -33,27 +36,45 @@ export function organizationSchema() {
       'Injection Molding',
       'BSCI Certified Toy Factory',
     ],
+    hasCredential: COMPANY.certifications.map((cert) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: cert,
+    })),
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'sales',
-      email: 'sales@toysourcingpartner.com',
+      email: COMPANY.email,
       availableLanguage: ['English', 'Chinese'],
     },
+    ...(socialLinks.length > 0 ? { sameAs: socialLinks } : {}),
   };
 }
 
-/** WebSite Schema（含搜索功能） */
+/** WebSite Schema (with SearchAction) */
 export function websiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: COMPANY_NAME,
+    name: COMPANY.name,
     url: SITE_URL,
-    description: COMPANY_DESC,
+    description:
+      'Toy manufacturer in Chenghai, China. Beach toys, bubble toys, remote control toys and building blocks.',
     inLanguage: 'en',
     publisher: {
       '@type': 'Organization',
-      name: COMPANY_NAME,
+      name: COMPANY.legalName,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}${COMPANY.logoUrl}`,
+      },
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/products?search={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
     },
   };
 }
@@ -66,36 +87,63 @@ export function productSchema(product: {
   category?: string;
   itemNumber?: string;
   moq?: string;
+  slug?: string;
 }) {
+  const imageUrl = product.image
+    ? product.image.startsWith('http')
+      ? product.image
+      : `${SITE_URL}${product.image}`
+    : undefined;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: product.image ? `${SITE_URL}${product.image}` : undefined,
+    ...(imageUrl ? { image: imageUrl } : {}),
+    ...(product.slug ? { url: `${SITE_URL}/product/${product.slug}` } : {}),
     category: product.category,
-    mpn: product.itemNumber,
+    ...(product.itemNumber ? { mpn: product.itemNumber, sku: product.itemNumber } : {}),
     brand: {
       '@type': 'Brand',
-      name: COMPANY_NAME,
+      name: COMPANY.name,
+    },
+    manufacturer: {
+      '@type': 'Organization',
+      name: COMPANY.legalName,
+      url: SITE_URL,
     },
     additionalProperty: [
-      product.itemNumber ? { '@type': 'PropertyValue', name: 'Item Number', value: product.itemNumber } : null,
-      product.moq ? { '@type': 'PropertyValue', name: 'Minimum Order Quantity', value: product.moq } : null,
+      product.itemNumber
+        ? { '@type': 'PropertyValue', name: 'Item Number', value: product.itemNumber }
+        : null,
+      product.moq
+        ? {
+            '@type': 'PropertyValue',
+            name: 'Minimum Order Quantity',
+            value: `${product.moq} pieces`,
+          }
+        : null,
     ].filter(Boolean),
     offers: {
       '@type': 'Offer',
+      url: product.slug ? `${SITE_URL}/product/${product.slug}` : SITE_URL,
       availability: 'https://schema.org/InStock',
       priceCurrency: 'USD',
+      seller: {
+        '@type': 'Organization',
+        name: COMPANY.legalName,
+      },
       eligibleQuantity: {
         '@type': 'QuantitativeValue',
         value: product.moq ? parseInt(product.moq) || 100 : 100,
+        unitText: 'piece',
       },
     },
   };
 }
 
-/** FAQPage Schema — GEO 最重要的格式，AI 搜索引擎优先提取 */
+/** FAQPage Schema */
 export function faqSchema(faqs: Array<{ question: string; answer: string }>) {
   return {
     '@context': 'https://schema.org',
@@ -120,27 +168,34 @@ export function blogPostSchema(post: {
   dateModified?: string;
   image?: string;
   category?: string;
+  slug?: string;
 }) {
+  const imageUrl = post.image
+    ? post.image.startsWith('http')
+      ? post.image
+      : `${SITE_URL}${post.image}`
+    : undefined;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.description,
-    image: post.image ? `${SITE_URL}${post.image}` : undefined,
-    datePublished: post.datePublished || new Date().toISOString(),
-    dateModified: post.dateModified || post.datePublished || new Date().toISOString(),
+    ...(imageUrl ? { image: imageUrl } : {}),
+    ...(post.slug ? { mainEntityOfPage: `${SITE_URL}/blog/${post.slug}` } : {}),
+    datePublished: post.datePublished || new Date().toISOString().split('T')[0],
+    dateModified: post.dateModified || post.datePublished || new Date().toISOString().split('T')[0],
     author: {
       '@type': 'Organization',
-      name: post.author || COMPANY_NAME,
+      name: post.author || COMPANY.legalName,
     },
     publisher: {
       '@type': 'Organization',
-      name: COMPANY_NAME,
-      url: SITE_URL,
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': SITE_URL,
+      name: COMPANY.legalName,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}${COMPANY.logoUrl}`,
+      },
     },
     articleSection: post.category,
   };
@@ -155,12 +210,12 @@ export function breadcrumbSchema(items: Array<{ name: string; url: string }>) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.url}`,
+      item: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
     })),
   };
 }
 
-/** Service Schema — 用于 OEM/服务页面 */
+/** Service Schema */
 export function serviceSchema(service: {
   name: string;
   description: string;
@@ -173,33 +228,36 @@ export function serviceSchema(service: {
     description: service.description,
     provider: {
       '@type': 'Organization',
-      name: COMPANY_NAME,
+      name: COMPANY.legalName,
     },
     areaServed: service.areaServed || 'Worldwide',
   };
 }
 
-/** CollectionPage Schema — 用于产品分类页 */
+/** CollectionPage Schema */
 export function collectionPageSchema(category: {
   name: string;
   description: string;
+  slug?: string;
   products?: Array<{ name: string; url: string }>;
 }) {
+  const slug = category.slug ?? category.name.toLowerCase().replace(/\s+/g, '-');
+  const pageUrl = slug ? `${SITE_URL}/products/${slug}` : `${SITE_URL}/products`;
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: category.name,
     description: category.description,
-    url: `${SITE_URL}/products/${category.name.toLowerCase().replace(/\s+/g, '-')}`,
+    url: pageUrl,
     hasPart: category.products?.map((p) => ({
       '@type': 'Product',
       name: p.name,
-      url: `${SITE_URL}${p.url}`,
+      url: p.url.startsWith('http') ? p.url : `${SITE_URL}${p.url}`,
     })),
   };
 }
 
-/** HowTo Schema — 用于采购流程类内容（GEO 友好） */
+/** HowTo Schema */
 export function howToSchema(title: string, steps: Array<{ name: string; text: string }>) {
   return {
     '@context': 'https://schema.org',

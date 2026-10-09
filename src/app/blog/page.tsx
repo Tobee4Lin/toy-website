@@ -46,7 +46,7 @@ export default async function BlogPage() {
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
               Expert guides, market trends, safety standards, and manufacturing tips
-              for toy brands and importers worldwide.
+              from our factory.
             </p>
           </div>
         </div>

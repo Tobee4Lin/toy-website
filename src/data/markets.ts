@@ -23,7 +23,7 @@ export const MOCK_MARKETS: IMarket[] = [
     slug: 'usa',
     region: 'North America',
     flag: '🇺🇸',
-    overview: 'The US is the largest toy market globally. Buyers prioritize safety compliance, innovative designs, and reliable supply chains. We help US importers source quality toys from Chenghai with full ASTM/CPSIA compliance support.',
+    overview: 'The US is a major toy market. Products for this market prioritize safety compliance, innovative designs, and reliable quality. Our factory manufactures toys with full ASTM/CPSIA compliance support.',
     buyerRequirements: [
       'ASTM F963 safety certification',
       'CPSIA compliance and testing reports',
@@ -93,7 +93,7 @@ export const MOCK_MARKETS: IMarket[] = [
     slug: 'brazil',
     region: 'South America',
     flag: '🇧🇷',
-    overview: 'Brazil is South America\'s largest toy market. Buyers seek durable, affordable toys with strong safety standards. We support Brazilian importers with INMETRO compliance and efficient logistics.',
+    overview: 'Brazil is a major toy market in South America. Products for this market are durable, affordable, and meet strong safety standards. Our factory supports INMETRO compliance and efficient logistics.',
     buyerRequirements: [
       'INMETRO certification',
       'Portuguese labeling',
