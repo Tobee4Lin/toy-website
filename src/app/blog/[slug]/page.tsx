@@ -163,10 +163,23 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             </p>
           )}
 
-          {markdownContent ? (
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {markdownContent}
-            </ReactMarkdown>
+          {post.content && post.content.length > 0 ? (
+            post.content.some((c) => /<\/?[a-z][\s\S]*>/i.test(c)) ? (
+              // 富文本 HTML 内容
+              post.content.map((block, i) => {
+                const isBlockTag = /^<(h[23]|ul|ol|blockquote|div)/i.test(block.trim());
+                return isBlockTag ? (
+                  <div key={i} dangerouslySetInnerHTML={{ __html: block }} />
+                ) : (
+                  <p key={i} dangerouslySetInnerHTML={{ __html: block }} />
+                );
+              })
+            ) : (
+              // 旧版纯文本 / Markdown
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {markdownContent}
+              </ReactMarkdown>
+            )
           ) : (
             <p className="text-muted-foreground">Article content coming soon...</p>
           )}

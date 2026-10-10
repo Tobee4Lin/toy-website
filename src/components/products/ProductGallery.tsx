@@ -1,7 +1,7 @@
 ﻿'use client';
 
-import { useState, useRef } from 'react';
-import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Sparkles, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Image } from '@/components/ui/image';
@@ -22,6 +22,7 @@ export default function ProductGallery({
   const [activeImage, setActiveImage] = useState(0);
   const [hoverPos, setHoverPos] = useState({ x: 50, y: 50 });
   const [zooming, setZooming] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const prev = () => setActiveImage(i => (i - 1 + images.length) % images.length);
@@ -35,8 +36,25 @@ export default function ProductGallery({
     setHoverPos({ x, y });
   };
 
+  // 模态框中 ESC 关闭
+  useEffect(() => {
+    if (!showModal) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowModal(false);
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [showModal]);
+
   return (
     <div className="grid gap-6 md:grid-cols-[120px_1fr]">
+      {/* 缩略图 */}
       <div className="flex gap-2 md:flex-col">
         {images.map((img, i) => (
           <button
@@ -53,12 +71,14 @@ export default function ProductGallery({
         ))}
       </div>
 
+      {/* 主图：hover 放大镜 + 点击模态框 */}
       <div
         ref={containerRef}
         className="relative select-none overflow-hidden rounded-2xl border border-border/50 bg-white cursor-zoom-in"
         onMouseEnter={() => setZooming(true)}
         onMouseLeave={() => setZooming(false)}
         onMouseMove={handleMouseMove}
+        onClick={() => setShowModal(true)}
       >
         <Image
           src={images[activeImage]}
@@ -66,6 +86,12 @@ export default function ProductGallery({
           className="aspect-square w-full object-contain p-4 transition-transform duration-200"
           style={zooming ? { transform: 'scale(2.5)', transformOrigin: `${hoverPos.x}% ${hoverPos.y}%` } : undefined}
         />
+
+        {/* 放大提示图标 */}
+        <div className="pointer-events-none absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1.5 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <ZoomIn className="size-3.5" />
+          点击放大
+        </div>
 
         {isFeatured && (
           <Badge className="absolute left-4 top-4 bg-[#FF7A00] text-white">
@@ -83,10 +109,18 @@ export default function ProductGallery({
 
         {images.length > 1 && (
           <>
-            <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70" aria-label="Previous">
+            <button
+              onClick={(e) => { e.stopPropagation(); prev(); }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+              aria-label="Previous"
+            >
               <ChevronLeft className="size-5" />
             </button>
-            <button onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70" aria-label="Next">
+            <button
+              onClick={(e) => { e.stopPropagation(); next(); }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+              aria-label="Next"
+            >
               <ChevronRight className="size-5" />
             </button>
           </>
@@ -96,6 +130,55 @@ export default function ProductGallery({
           {activeImage + 1} / {images.length}
         </div>
       </div>
+
+      {/* 放大模态框 */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setShowModal(false)}
+        >
+          <button
+            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+            onClick={() => setShowModal(false)}
+            aria-label="Close"
+          >
+            <X className="size-6" />
+          </button>
+
+          {images.length > 1 && (
+            <>
+              <button
+                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                aria-label="Previous"
+              >
+                <ChevronLeft className="size-7" />
+              </button>
+              <button
+                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                aria-label="Next"
+              >
+                <ChevronRight className="size-7" />
+              </button>
+            </>
+          )}
+
+          <div
+            className="relative max-h-[85vh] max-w-[90vw]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={images[activeImage]}
+              alt={productName}
+              className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
+            />
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-1.5 text-sm text-white">
+              {activeImage + 1} / {images.length}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
