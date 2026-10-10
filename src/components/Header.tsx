@@ -182,18 +182,9 @@ export default function Header() {
             ))}
             <div className="border-t border-white/10 pt-3">
               <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => { handleCatalogClick(); setMobileOpen(false); }}
-                className="w-full justify-start text-white/80 hover:bg-white/10 hover:text-white"
-              >
-                <Download className="mr-2 size-4" />
-                Download Catalog
-              </Button>
-              <Button
                 size="sm"
                 onClick={() => { handleRequestQuote(); setMobileOpen(false); }}
-                className="mt-2 w-full bg-[#FF7A00] text-white hover:bg-[#FF7A00]/90"
+                className="w-full bg-[#FF7A00] text-white hover:bg-[#FF7A00]/90"
               >
                 Request a Quote
               </Button>

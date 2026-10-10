@@ -82,7 +82,7 @@ export default function WhatsAppFloat({ productName, itemNumber }: WhatsAppFloat
         aria-label="WhatsApp"
       >
         <MessageCircle className="size-7" />
-        <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366]/40 group-hover:animate-none" />
+        <span className="absolute inset-0 hidden animate-ping rounded-full bg-[#25D366]/40 md:block" />
       </button>
     </div>
   );

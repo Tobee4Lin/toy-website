@@ -148,15 +148,6 @@ export default function OemPageContent() {
                 <Send className="mr-2 size-4" />
                 Discuss Your Project
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={handleCatalog}
-                className="border-white/20 bg-white/5 text-white hover:bg-white/10"
-              >
-                <Download className="mr-2 size-4" />
-                Download OEM Catalog
-              </Button>
             </div>
           </motion.div>
         </div>
