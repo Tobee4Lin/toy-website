@@ -19,7 +19,7 @@ import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { getProductBySlug, getProducts, getAllProductSlugs } from '@/lib/server-data';
 import { productSchema, breadcrumbSchema } from '@/lib/structuredData';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const slugs = await getAllProductSlugs();

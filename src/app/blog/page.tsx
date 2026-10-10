@@ -4,7 +4,7 @@ import BlogFilter from '@/components/blog/BlogFilter';
 import { getBlogPosts } from '@/lib/server-data';
 import { breadcrumbSchema } from '@/lib/structuredData';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

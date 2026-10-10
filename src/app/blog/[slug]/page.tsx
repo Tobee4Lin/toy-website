@@ -19,7 +19,7 @@ import BlogDetailActions from '@/components/blog/BlogDetailActions';
 import { getBlogPostBySlug, getBlogPosts, getAllBlogSlugs } from '@/lib/server-data';
 import { blogPostSchema, breadcrumbSchema } from '@/lib/structuredData';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const slugs = await getAllBlogSlugs();

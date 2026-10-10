@@ -13,7 +13,7 @@ import FinalCtaSection from '@/components/sections/home/FinalCtaSection';
 import { faqSchema, howToSchema } from '@/lib/structuredData';
 import { getProducts, getCategories, getBlogPosts } from '@/lib/server-data';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Levich Toys | Chenghai Toy Manufacturer & Wholesale Supplier',

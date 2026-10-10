@@ -14,7 +14,7 @@ import ProductFilter from '@/components/products/ProductFilter';
 import { getProducts, getCategories, getAllCategorySlugs } from '@/lib/server-data';
 import { collectionPageSchema, breadcrumbSchema, faqSchema } from '@/lib/structuredData';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const slugs = await getAllCategorySlugs();
