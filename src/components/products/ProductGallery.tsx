@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Sparkles, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -20,23 +20,12 @@ export default function ProductGallery({
   certifications = [],
 }: ProductGalleryProps) {
   const [activeImage, setActiveImage] = useState(0);
-  const [hoverPos, setHoverPos] = useState({ x: 50, y: 50 });
-  const [zooming, setZooming] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const prev = () => setActiveImage(i => (i - 1 + images.length) % images.length);
   const next = () => setActiveImage(i => (i + 1) % images.length);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setHoverPos({ x, y });
-  };
-
-  // 模态框中 ESC 关闭
+  // 模态框中 ESC 关闭、左右箭头切换
   useEffect(() => {
     if (!showModal) return;
     const onKey = (e: KeyboardEvent) => {
@@ -71,23 +60,18 @@ export default function ProductGallery({
         ))}
       </div>
 
-      {/* 主图：hover 放大镜 + 点击模态框 */}
+      {/* 主图：点击放大 */}
       <div
-        ref={containerRef}
-        className="relative select-none overflow-hidden rounded-2xl border border-border/50 bg-white cursor-zoom-in"
-        onMouseEnter={() => setZooming(true)}
-        onMouseLeave={() => setZooming(false)}
-        onMouseMove={handleMouseMove}
+        className="group relative select-none overflow-hidden rounded-2xl border border-border/50 bg-white cursor-zoom-in"
         onClick={() => setShowModal(true)}
       >
         <Image
           src={images[activeImage]}
           alt={productName}
-          className="aspect-square w-full object-contain p-4 transition-transform duration-200"
-          style={zooming ? { transform: 'scale(2.5)', transformOrigin: `${hoverPos.x}% ${hoverPos.y}%` } : undefined}
+          className="aspect-square w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
         />
 
-        {/* 放大提示图标 */}
+        {/* 放大提示 */}
         <div className="pointer-events-none absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1.5 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
           <ZoomIn className="size-3.5" />
           点击放大
