@@ -1,7 +1,7 @@
 // API client for fetching data from backend admin system
 // Falls back to local static JSON when API is unavailable
 
-const API_BASE = process.env.API_BASE_URL || 'http://localhost:3000';
+const API_BASE = process.env.API_BASE_URL || '';
 
 export interface ApiProduct {
   id: string;

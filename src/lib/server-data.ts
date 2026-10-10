@@ -9,7 +9,7 @@ import { MOCK_PRODUCTS } from '@/data/products';
 import { MOCK_CATEGORIES } from '@/data/categories';
 import { MOCK_BLOG_POSTS } from '@/data/blog';
 
-const API_BASE = process.env.API_BASE_URL || 'http://localhost:3000';
+const API_BASE = process.env.API_BASE_URL || '';
 const REVALIDATE = 3600;
 
 // Resolve relative URL to full API URL

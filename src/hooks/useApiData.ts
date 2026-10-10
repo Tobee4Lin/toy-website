@@ -10,7 +10,7 @@ import {
   type ApiBlogPost,
 } from '@/lib/api';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || 'http://localhost:3000';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || '';
 
 // Resolve relative URL to full API URL
 function resolveUrl(url: string): string {
