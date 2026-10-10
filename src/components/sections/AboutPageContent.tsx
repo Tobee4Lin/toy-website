@@ -78,15 +78,11 @@ export default function AboutPageContent() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative w-full overflow-hidden bg-[#071A2D] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255_122_0_0.25),transparent_50%)]" />
         <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: 'url(/images/factory/factory-building.png)' }}
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071A2D]/90 via-[#071A2D]/75 to-[#071A2D]/50" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-28">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

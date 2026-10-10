@@ -22,24 +22,24 @@ export interface ISiteConfig {
 }
 
 export const MOCK_SITE_CONFIG: ISiteConfig = {
-  brandName: 'YOUR BRAND NAME',
+  brandName: 'Levich Toys',
   slogan: 'PLAY BEYOND LIMITS',
-  companyName: 'YOUR COMPANY NAME',
-  email: 'sales@yourbrand.com',
+  companyName: 'Guangdong Levich Toys Co., Ltd.',
+  email: 'felix629@levichtoys.com',
   whatsapp: '8613538618656',
-  phone: '+86 754 0000 0000',
+  phone: '+86 13538618656',
   address: 'Huafu Fuhua South Road, Guangyi Subdistrict, Chenghai District, Shantou City, Guangdong, China',
-  websiteUrl: 'https://www.yourbrand.com',
+  websiteUrl: 'https://www.levichtoys.com',
   socialLinks: {
-    facebook: 'https://facebook.com/yourbrand',
-    linkedin: 'https://linkedin.com/company/yourbrand',
-    instagram: 'https://instagram.com/yourbrand',
-    youtube: 'https://youtube.com/@yourbrand',
+    facebook: 'https://www.facebook.com/profile.php?id=61594233811356',
+    linkedin: '',
+    instagram: '',
+    youtube: '',
   },
   defaultSEO: {
-    title: 'Your Brand - Levich Toys in Chenghai, China',
+    title: 'Levich Toys - Toy Manufacturer in Chenghai, China',
     description:
-      'Innovative toys, reliable manufacturing, global supply. Your trusted B2B toy manufacturer in Chenghai, China.',
+      'Innovative toys, reliable manufacturing, global supply. Your trusted toy manufacturer in Chenghai, China.',
     keywords: [
       'toy manufacturer',
       'toy manufacturing',

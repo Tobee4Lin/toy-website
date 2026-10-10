@@ -27,42 +27,42 @@ const PROCESS_STEPS = [
     step: '01',
     title: 'Idea & Concept',
     desc: 'Share your vision, target market, and requirements. We analyze feasibility and provide expert guidance.',
-    color: 'from-[#1565FF] to-[#0d47a1]',
+    accent: '#1565FF',
   },
   {
     icon: Palette,
     step: '02',
     title: 'Design & Engineering',
     desc: '3D modeling, engineering drawings, material selection. Iterate until the design is perfect.',
-    color: 'from-[#FF7A00] to-[#e65100]',
+    accent: '#FF7A00',
   },
   {
     icon: Layers,
     step: '03',
     title: 'Prototype & Sample',
     desc: 'Physical sample production for review and testing. Refine before tooling and mass production.',
-    color: 'from-[#FFC400] to-[#ff8f00]',
+    accent: '#FFC400',
   },
   {
     icon: Factory,
     step: '04',
     title: 'Tooling & Production',
     desc: 'Mold making, pilot run, then full-scale manufacturing with rigorous in-process QC.',
-    color: 'from-[#1565FF] to-[#0d47a1]',
+    accent: '#1565FF',
   },
   {
     icon: ShieldCheck,
     step: '05',
     title: 'Quality Control',
     desc: 'Incoming, in-process, finished product, and pre-shipment inspections. Full testing support.',
-    color: 'from-[#FF7A00] to-[#e65100]',
+    accent: '#FF7A00',
   },
   {
     icon: Truck,
     step: '06',
     title: 'Global Delivery',
     desc: 'Packaging, logistics coordination, shipping by sea/air/express. Door-to-door options.',
-    color: 'from-[#FFC400] to-[#ff8f00]',
+    accent: '#FFC400',
   },
 ];
 
@@ -110,15 +110,11 @@ export default function OemPageContent() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative w-full overflow-hidden bg-[#071A2D] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(21_101_255_0.3),transparent_50%)]" />
         <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: 'url(/images/factory/injection-molding.png)' }}
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071A2D]/90 via-[#071A2D]/75 to-[#071A2D]/50" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-28">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -186,22 +182,28 @@ export default function OemPageContent() {
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                 >
-                  <Card className="h-full overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <div
-                      className={`bg-gradient-to-br ${step.color} p-6 text-white`}
-                    >
+                  <Card className="group h-full border-0 bg-white shadow-sm ring-1 ring-slate-200 transition-all hover:-translate-y-1 hover:shadow-xl">
+                    <CardContent className="p-6">
                       <div className="flex items-start justify-between">
-                        <div className="flex size-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
+                        <div
+                          className="flex size-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+                          style={{ backgroundColor: `${step.accent}15`, color: step.accent }}
+                        >
                           <Icon className="size-6" />
                         </div>
-                        <span className="text-4xl font-black text-white/20">
+                        <span
+                          className="text-5xl font-black leading-none"
+                          style={{ color: `${step.accent}15` }}
+                        >
                           {step.step}
                         </span>
                       </div>
-                      <h3 className="mt-4 text-xl font-bold">{step.title}</h3>
-                    </div>
-                    <CardContent className="p-5">
-                      <p className="text-sm text-muted-foreground">{step.desc}</p>
+                      <h3 className="mt-5 text-lg font-bold text-[#071A2D]">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                        {step.desc}
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>

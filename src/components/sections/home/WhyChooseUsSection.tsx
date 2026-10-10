@@ -33,7 +33,7 @@ const FEATURES = [
     number: '04',
     title: 'Global Export Experience',
     description:
-      'Serving 50+ countries with EN71, ASTM, CPSIA and CE compliance support. We handle documentation, certification and shipping logistics.',
+      'Serving 20+ countries with EN71, ASTM, CPSIA and CE compliance support. We handle documentation, certification and shipping logistics.',
     icon: Globe2,
     accent: '#071A2D',
   },

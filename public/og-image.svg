@@ -12,10 +12,11 @@
   <rect width="1200" height="630" fill="url(#bg)"/>
   <circle cx="1000" cy="120" r="200" fill="#1565FF" opacity="0.08"/>
   <circle cx="150" cy="550" r="180" fill="#FF7A00" opacity="0.06"/>
-  <rect x="80" y="200" width="120" height="6" rx="3" fill="url(#accent)"/>
-  <text x="80" y="280" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#FFFFFF">Toy Sourcing Partner</text>
-  <text x="80" y="340" font-family="Arial, sans-serif" font-size="28" fill="#8BA3C7">Chenghai, Shantou, Guangdong, China</text>
-  <text x="80" y="400" font-family="Arial, sans-serif" font-size="22" fill="#5A7A9E">Beach Toys · Bubble Toys · RC Toys · Building Blocks</text>
-  <text x="80" y="440" font-family="Arial, sans-serif" font-size="22" fill="#5A7A9E">OEM / ODM · Wholesale Supply · Global Export</text>
-  <text x="80" y="560" font-family="Arial, sans-serif" font-size="20" fill="#1565FF">www.toysourcingpartner.com</text>
+  <rect x="80" y="180" width="120" height="6" rx="3" fill="url(#accent)"/>
+  <text x="80" y="260" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#FFFFFF">Levich Toys</text>
+  <text x="80" y="310" font-family="Arial, sans-serif" font-size="28" fill="#8BA3C7">Toy Manufacturer Since 2015 — Chenghai, China</text>
+  <text x="80" y="380" font-family="Arial, sans-serif" font-size="22" fill="#5A7A9E">Beach Toys · Bubble Toys · RC Toys · Building Blocks</text>
+  <text x="80" y="420" font-family="Arial, sans-serif" font-size="22" fill="#5A7A9E">OEM / ODM · BSCI &amp; ISO 9001 Certified Factory</text>
+  <text x="80" y="460" font-family="Arial, sans-serif" font-size="22" fill="#5A7A9E">20,000 m² Factory · 5,000 m² Warehouse · 7-Day Sampling</text>
+  <text x="80" y="560" font-family="Arial, sans-serif" font-size="20" fill="#1565FF">www.levichtoys.com</text>
 </svg>

@@ -59,7 +59,7 @@ export default function GlobalMarketSection() {
             Global Market
           </span>
           <h2 className="text-3xl font-bold tracking-tight text-[#071A2D] md:text-4xl lg:text-5xl">
-            Serving 50+ Countries
+            Serving 20+ Countries
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
             From North America to Southeast Asia, we help buyers worldwide source
@@ -181,7 +181,7 @@ export default function GlobalMarketSection() {
               {/* Stats overlay at bottom */}
               <div className="absolute bottom-0 left-0 right-0 flex items-center justify-around border-t border-white/10 bg-black/20 px-6 py-3 backdrop-blur-sm">
                 <div className="text-center">
-                  <div className="text-lg font-bold text-white">50+</div>
+                  <div className="text-lg font-bold text-white">20+</div>
                   <div className="text-[10px] text-white/50">Countries</div>
                 </div>
                 <div className="h-8 w-px bg-white/10" />

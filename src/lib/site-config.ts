@@ -10,7 +10,7 @@ export const COMPANY = {
   legalName: 'Guangdong Levich Toys Co., Ltd.',
   shortName: 'Levich Toys',
   foundedYear: 2015,
-  email: 'sales@levichtoys.com',
+  email: 'felix629@levichtoys.com',
   phone: '+86 13538618656',
   whatsapp: '+86 13538618656',
   address: {

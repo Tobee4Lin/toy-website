@@ -21,23 +21,23 @@ const CONTACT_INFO = [
   {
     icon: Mail,
     title: 'Email',
-    value: 'sales@yourbrand.com',
+    value: 'felix629@levichtoys.com',
     desc: 'Response within 24 hours',
-    href: 'mailto:sales@yourbrand.com',
+    href: 'mailto:felix629@levichtoys.com',
   },
   {
     icon: MessageCircle,
     title: 'WhatsApp',
-    value: '+86 138 0000 0000',
+    value: '+86 13538618656',
     desc: 'Quick chat with our team',
     href: 'https://wa.me/8613538618656',
   },
   {
     icon: Phone,
     title: 'Phone',
-    value: '+86 754 0000 0000',
+    value: '+86 13538618656',
     desc: 'Mon - Sat, 9:00 - 18:00 CST',
-    href: 'tel:+867540000000',
+    href: 'tel:+8613538618656',
   },
   {
     icon: MapPin,
@@ -64,15 +64,11 @@ export default function ContactPageContent() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative w-full overflow-hidden bg-[#071A2D] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(21_101_255_0.3),transparent_50%)]" />
         <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: 'url(/images/factory/showroom-reception.png)' }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#071A2D]/70 via-[#071A2D]/80 to-[#071A2D]" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

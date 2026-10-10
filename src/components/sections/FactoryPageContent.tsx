@@ -348,7 +348,7 @@ export default function FactoryPageContent() {
                   <Globe className="mb-3 size-8" />
                   <div className="text-2xl font-bold">Global Export</div>
                   <div className="text-sm text-white/70">
-                    50+ countries, all major shipping routes
+                    20+ countries, all major shipping routes
                   </div>
                 </CardContent>
               </Card>
