@@ -12,7 +12,7 @@ import ProductFilter from '@/components/products/ProductFilter';
 import { getProducts, getCategories } from '@/lib/server-data';
 import { collectionPageSchema, breadcrumbSchema, faqSchema } from '@/lib/structuredData';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
