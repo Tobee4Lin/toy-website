@@ -18,7 +18,7 @@ function resolveUrl(url: string): string {
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
     return url;
   }
-  if (url.startsWith('/images/') || url.startsWith('/uploads/')) {
+  if (url.startsWith('/images/') || url.startsWith('/uploads/') || url.startsWith('/api/')) {
     return url;
   }
   return `${API_BASE}${url.startsWith('/') ? '' : '/'}${url}`;

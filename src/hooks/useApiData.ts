@@ -18,8 +18,8 @@ function resolveUrl(url: string): string {
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
     return url;
   }
-  // Local static assets in /images/ or /uploads/ should stay relative to frontend
-  if (url.startsWith('/images/') || url.startsWith('/uploads/')) {
+  // Local static assets and API-served files should stay relative (proxied by Nginx)
+  if (url.startsWith('/images/') || url.startsWith('/uploads/') || url.startsWith('/api/')) {
     return url;
   }
   return `${API_BASE}${url.startsWith('/') ? '' : '/'}${url}`;
