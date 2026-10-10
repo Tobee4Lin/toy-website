@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/my-selection'],
+        disallow: ['/api/', '/admin/', '/my-selection'],
       },
       // AI search engine crawlers
       { userAgent: 'GPTBot', allow: '/' },

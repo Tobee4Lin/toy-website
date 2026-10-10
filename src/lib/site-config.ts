@@ -3,7 +3,7 @@
  * Centralize domain, company info, and SEO constants to avoid hardcoding across files.
  */
 
-export const SITE_URL = 'https://www.levichtoys.com';
+export const SITE_URL = 'https://levichtoys.com';
 
 export const COMPANY = {
   name: 'Levich Toys',
