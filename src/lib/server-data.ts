@@ -100,14 +100,14 @@ function adaptBlogPost(api: ApiBlogPost): IBlogPost {
   };
 }
 
-// Server: fetch all products with fallback to static data
+// Server: fetch all products with fallback to static data (dev only)
 export async function getProducts(options?: { category?: string; search?: string }): Promise<IProduct[]> {
   try {
     const res = await fetchProducts({ limit: 500, ...options });
     return res.items.map(adaptProduct);
   } catch (err) {
     console.warn('[getProducts] API failed, using static data:', err);
-    return MOCK_PRODUCTS;
+    return process.env.NODE_ENV === 'production' ? [] : MOCK_PRODUCTS;
   }
 }
 
@@ -116,9 +116,9 @@ export async function getProductBySlug(slug: string): Promise<IProduct | null> {
   try {
     const apiProduct = await fetchProductBySlug(slug);
     if (apiProduct) return adaptProduct(apiProduct);
-    return MOCK_PRODUCTS.find((p) => p.slug === slug) || null;
+    return process.env.NODE_ENV === 'production' ? null : MOCK_PRODUCTS.find((p) => p.slug === slug) || null;
   } catch {
-    return MOCK_PRODUCTS.find((p) => p.slug === slug) || null;
+    return process.env.NODE_ENV === 'production' ? null : MOCK_PRODUCTS.find((p) => p.slug === slug) || null;
   }
 }
 
@@ -129,7 +129,7 @@ export async function getCategories(): Promise<ICategory[]> {
     return apiCats.map(adaptCategory);
   } catch (err) {
     console.warn('[getCategories] API failed, using static data:', err);
-    return MOCK_CATEGORIES;
+    return process.env.NODE_ENV === 'production' ? [] : MOCK_CATEGORIES;
   }
 }
 
@@ -140,7 +140,7 @@ export async function getBlogPosts(options?: { category?: string; search?: strin
     return res.items.map(adaptBlogPost);
   } catch (err) {
     console.warn('[getBlogPosts] API failed, using static data:', err);
-    return MOCK_BLOG_POSTS;
+    return process.env.NODE_ENV === 'production' ? [] : MOCK_BLOG_POSTS;
   }
 }
 
@@ -149,9 +149,9 @@ export async function getBlogPostBySlug(slug: string): Promise<IBlogPost | null>
   try {
     const apiPost = await fetchBlogPostBySlug(slug);
     if (apiPost) return adaptBlogPost(apiPost);
-    return MOCK_BLOG_POSTS.find((p) => p.slug === slug) || null;
+    return process.env.NODE_ENV === 'production' ? null : MOCK_BLOG_POSTS.find((p) => p.slug === slug) || null;
   } catch {
-    return MOCK_BLOG_POSTS.find((p) => p.slug === slug) || null;
+    return process.env.NODE_ENV === 'production' ? null : MOCK_BLOG_POSTS.find((p) => p.slug === slug) || null;
   }
 }
 
