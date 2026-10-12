@@ -287,9 +287,27 @@ function ProductFilterInner({ products, categories, activeCategory }: ProductFil
                         <ChevronRight className="size-4" />
                       </Button>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      Page {safePage} of {totalPages}
-                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span>Page {safePage} of {totalPages}</span>
+                      <span className="flex items-center gap-1">
+                        Go to
+                        <input
+                          type="number"
+                          min={1}
+                          max={totalPages}
+                          defaultValue={safePage}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              const val = parseInt((e.target as HTMLInputElement).value, 10);
+                              if (!isNaN(val) && val >= 1 && val <= totalPages) {
+                                goToPage(val);
+                              }
+                            }
+                          }}
+                          className="w-12 rounded border border-input bg-background px-1 py-0.5 text-center text-xs text-foreground"
+                        />
+                      </span>
+                    </div>
                   </div>
                 )}
               </>
