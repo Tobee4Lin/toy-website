@@ -1,8 +1,11 @@
-# Toy Sourcing Partner — 国际 B2B 玩具独立站（Next.js）
+# Levich Toys — 玩具工厂独立站（Next.js）
 
-面向国际玩具采购商的 B2B 独立站，定位为中国澄海玩具采购合作伙伴。主营沙滩玩具、泡泡玩具、遥控玩具、塑料积木四大品类，支持 OEM/ODM、询盘、产品选型、目录下载等 B2B 转化功能。
+澄海玩具工厂自营 B2B 独立站，展示泡泡玩具、沙滩玩具、遥控玩具、积木四大品类。支持 OEM/ODM、在线询盘、产品选型。
 
-本项目由 Vite + React SPA 迁移至 Next.js App Router，采用 SSG + ISR 渲染策略，SEO 友好。
+**线上地址**：https://levichtoys.com
+**后台管理**：https://levichtoys.com/admin/
+
+本项目采用 Next.js App Router，SSG + ISR 渲染，SEO 友好。
 
 ---
 
@@ -19,7 +22,7 @@
 | 表单 | React Hook Form + Zod |
 | 图标 | Lucide React |
 | 轮播 | Embla Carousel |
-| 数据获取 | Server Components + fetch（ISR revalidate: 3600） |
+| 数据获取 | Server Components + fetch（ISR revalidate: 300） |
 | 状态管理 | React Context + localStorage |
 | 后台 API | NestJS（独立项目，端口 3000） |
 
@@ -298,51 +301,21 @@ Client Components → useApiData.ts → api.ts → 后台 API
 
 ---
 
-## 部署
+## 部署（Hostinger VPS）
 
-### Vercel（推荐）
-
-1. 将代码推送到 GitHub
-2. 在 Vercel 导入仓库
-3. 配置环境变量：
-   ```
-   API_BASE_URL=https://your-backend-api.com
-   NEXT_PUBLIC_API_BASE_URL=https://your-backend-api.com
-   ```
-4. 部署完成后绑定自定义域名
-
-### 自托管（Node.js 服务器）
+生产环境部署在 Hostinger KVM VPS（Ubuntu 22.04）：
 
 ```bash
+cd /var/www/toy-website
+git pull
+rm -rf .next
 npm run build
-npm run start
+pm2 restart toy-website
 ```
 
-使用 PM2 或 systemd 守护进程：
+Nginx 将 80/443 端口的 `/` 请求代理到 `localhost:3001`，`/api/` 和 `/uploads/` 代理到后台 `localhost:3000`。
 
-```bash
-npm install -g pm2
-pm2 start npm --name "toy-website" -- run start
-pm2 save
-```
-
-### Nginx 反向代理（可选）
-
-```nginx
-server {
-    listen 80;
-    server_name yourdomain.com;
-
-    location / {
-        proxy_pass http://localhost:3001;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
+后台管理面板通过 Nginx 静态文件服务在 `/admin/` 路径下访问。
 
 ---
 
