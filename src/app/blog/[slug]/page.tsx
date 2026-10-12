@@ -135,7 +135,16 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         </h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-          <span>By {post.author}</span>
+          <span className="flex items-center gap-2">
+            {post.authorAvatar && (
+              <Image
+                src={post.authorAvatar}
+                alt={post.author || 'Author'}
+                className="size-8 rounded-full object-cover"
+              />
+            )}
+            By {post.author}
+          </span>
           <span className="flex items-center gap-1">
             <Calendar className="size-3.5" />
             {post.date}
