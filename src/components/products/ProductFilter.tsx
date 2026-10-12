@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useState, useMemo, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -81,8 +81,13 @@ function ProductFilterInner({ products, categories, activeCategory }: ProductFil
   const safePage = Math.min(currentPage, totalPages);
   const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
-  // 切换分类/搜索/排序时回到第一页
+  // 切换分类/搜索/排序时回到第一页（但首次加载不重置，保留 URL 中的页码）
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     setCurrentPage(1);
   }, [activeCategory, keyword, sortBy]);
 
