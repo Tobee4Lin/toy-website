@@ -1,7 +1,7 @@
 ﻿'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ import type { IProduct } from '@/data/products';
 import type { ICategory } from '@/data/categories';
 
 const AGE_GROUPS = ['0-3 years', '3+ years', '6+ years', '8+ years', '12+ years'];
-const PAGE_SIZE = 18;
+const PAGE_SIZE = 9;
 
 interface ProductFilterProps {
   products: IProduct[];
@@ -33,12 +33,15 @@ interface ProductFilterProps {
   activeCategory: string;
 }
 
-export default function ProductFilter({ products, categories, activeCategory }: ProductFilterProps) {
+function ProductFilterInner({ products, categories, activeCategory }: ProductFilterProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [keyword, setKeyword] = useState('');
   const [sortBy, setSortBy] = useState('default');
-  const [currentPage, setCurrentPage] = useState(1);
+  // 从 URL 读取当前页码，浏览器返回时能恢复
+  const pageFromUrl = parseInt(searchParams.get('page') || '1', 10);
+  const [currentPage, setCurrentPage] = useState(isNaN(pageFromUrl) ? 1 : pageFromUrl);
 
   const filtered = useMemo(() => {
     let items: IProduct[] = [...products];
@@ -78,7 +81,7 @@ export default function ProductFilter({ products, categories, activeCategory }: 
   const safePage = Math.min(currentPage, totalPages);
   const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
-  // Reset to first page whenever the result set changes
+  // 切换分类/搜索/排序时回到第一页
   useEffect(() => {
     setCurrentPage(1);
   }, [activeCategory, keyword, sortBy]);
@@ -87,6 +90,19 @@ export default function ProductFilter({ products, categories, activeCategory }: 
     if (currentPage !== safePage) setCurrentPage(safePage);
   }, [safePage, currentPage]);
 
+  // 页码变化时同步到 URL（不触发页面刷新）
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (safePage > 1) {
+        url.searchParams.set('page', String(safePage));
+      } else {
+        url.searchParams.delete('page');
+      }
+      window.history.replaceState(null, '', url.pathname + url.search);
+    }
+  }, [safePage]);
+
   const goToPage = (page: number) => {
     setCurrentPage(page);
     if (typeof window !== 'undefined') {
@@ -94,7 +110,7 @@ export default function ProductFilter({ products, categories, activeCategory }: 
     }
   };
 
-  // Build page number list (always show first/last, ellipsis for large ranges)
+  // Build page number list
   const pageNumbers = useMemo(() => {
     const pages: Array<number | 'ellipsis'> = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -277,5 +293,13 @@ export default function ProductFilter({ products, categories, activeCategory }: 
         </div>
       </div>
     </section>
+  );
+}
+
+export default function ProductFilter(props: ProductFilterProps) {
+  return (
+    <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+      <ProductFilterInner {...props} />
+    </Suspense>
   );
 }
