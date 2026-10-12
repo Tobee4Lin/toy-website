@@ -21,9 +21,9 @@ const CONTACT_INFO = [
   {
     icon: Mail,
     title: 'Email',
-    value: 'felix629@levichtoys.com',
+    value: 'felix@levichtoys.com',
     desc: 'Response within 24 hours',
-    href: 'mailto:felix629@levichtoys.com',
+    href: 'mailto:felix@levichtoys.com',
   },
   {
     icon: MessageCircle,

@@ -25,7 +25,7 @@ export const MOCK_SITE_CONFIG: ISiteConfig = {
   brandName: 'Levich Toys',
   slogan: 'PLAY BEYOND LIMITS',
   companyName: 'Guangdong Levich Toys Co., Ltd.',
-  email: 'felix629@levichtoys.com',
+  email: 'felix@levichtoys.com',
   whatsapp: '8613538618656',
   phone: '+86 13538618656',
   address: 'Huafu Fuhua South Road, Guangyi Subdistrict, Chenghai District, Shantou City, Guangdong, China',
