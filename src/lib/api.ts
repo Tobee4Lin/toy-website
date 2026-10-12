@@ -88,7 +88,7 @@ export async function fetchProducts(params?: {
 
 export async function fetchProductBySlug(slug: string): Promise<ApiProduct | null> {
   try {
-    const all = await fetchProducts({ limit: 100 });
+    const all = await fetchProducts({ limit: 500 });
     return all.items.find((p) => p.slug === slug) || null;
   } catch {
     return null;
@@ -126,7 +126,7 @@ export async function fetchBlogPosts(params?: {
 
 export async function fetchBlogPostBySlug(slug: string): Promise<ApiBlogPost | null> {
   try {
-    const all = await fetchBlogPosts({ limit: 100 });
+    const all = await fetchBlogPosts({ limit: 200 });
     return all.items.find((p) => p.slug === slug) || null;
   } catch {
     return null;
