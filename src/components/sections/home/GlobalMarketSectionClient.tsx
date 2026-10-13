@@ -1,9 +1,26 @@
 const COUNTRIES = [
-  'United States', 'Mexico', 'Brazil', 'Argentina', 'Chile', 'Peru',
-  'United Kingdom', 'Germany', 'France', 'Spain', 'Italy', 'Poland', 'Russia',
-  'UAE', 'Saudi Arabia', 'Egypt',
-  'Thailand', 'Vietnam', 'Philippines', 'Indonesia',
-  'Turkey', 'South Africa',
+  { flag: '🇺🇸', name: 'United States' },
+  { flag: '🇲🇽', name: 'Mexico' },
+  { flag: '🇧🇷', name: 'Brazil' },
+  { flag: '🇦🇷', name: 'Argentina' },
+  { flag: '🇨🇱', name: 'Chile' },
+  { flag: '🇵🇪', name: 'Peru' },
+  { flag: '🇬🇧', name: 'United Kingdom' },
+  { flag: '🇩🇪', name: 'Germany' },
+  { flag: '🇫🇷', name: 'France' },
+  { flag: '🇪🇸', name: 'Spain' },
+  { flag: '🇮🇹', name: 'Italy' },
+  { flag: '🇵🇱', name: 'Poland' },
+  { flag: '🇷🇺', name: 'Russia' },
+  { flag: '🇦🇪', name: 'UAE' },
+  { flag: '🇸🇦', name: 'Saudi Arabia' },
+  { flag: '🇪🇬', name: 'Egypt' },
+  { flag: '🇹🇭', name: 'Thailand' },
+  { flag: '🇻🇳', name: 'Vietnam' },
+  { flag: '🇵🇭', name: 'Philippines' },
+  { flag: '🇮🇩', name: 'Indonesia' },
+  { flag: '🇹🇷', name: 'Turkey' },
+  { flag: '🇿🇦', name: 'South Africa' },
 ];
 
 const REGIONS = [
@@ -48,10 +65,11 @@ export default function GlobalMarketSection() {
         <div className="mt-12 flex flex-wrap justify-center gap-3">
           {COUNTRIES.map((c) => (
             <span
-              key={c}
-              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700"
+              key={c.name}
+              className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700"
             >
-              {c}
+              <span>{c.flag}</span>
+              {c.name}
             </span>
           ))}
           <span className="rounded-full bg-[#0D9B8C] px-4 py-2 text-sm font-medium text-white">
