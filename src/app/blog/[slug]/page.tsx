@@ -173,22 +173,11 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           )}
 
           {post.content && post.content.length > 0 ? (
-            post.content.some((c) => /<\/?[a-z][\s\S]*>/i.test(c)) ? (
-              // 富文本 HTML 内容
-              post.content.map((block, i) => {
-                const isBlockTag = /^<(h[23]|ul|ol|blockquote|div)/i.test(block.trim());
-                return isBlockTag ? (
-                  <div key={i} dangerouslySetInnerHTML={{ __html: block }} />
-                ) : (
-                  <p key={i} dangerouslySetInnerHTML={{ __html: block }} />
-                );
-              })
-            ) : (
-              // 旧版纯文本 / Markdown
+            <div className="prose prose-slate max-w-none prose-headings:font-bold prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-xl prose-p:leading-relaxed prose-p:my-4 prose-ul:my-4 prose-li:my-1 prose-strong:text-[#071A2D]">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {markdownContent}
               </ReactMarkdown>
-            )
+            </div>
           ) : (
             <p className="text-muted-foreground">Article content coming soon...</p>
           )}
