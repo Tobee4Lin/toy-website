@@ -94,8 +94,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     ]),
   );
 
-  // Join content paragraphs for markdown rendering
-  const markdownContent = post.content.join('\n\n');
+  // Join content paragraphs for markdown rendering, strip stray <br> tags
+  const markdownContent = post.content
+    .map((c) => c.replace(/<br\s*\/?>/gi, ''))
+    .join('\n\n');
 
   return (
     <div className="min-h-screen bg-white">
