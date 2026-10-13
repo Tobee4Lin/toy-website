@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
 import { getProducts, getBlogPosts } from '@/lib/server-data';
-import { MOCK_MARKETS } from '@/data/markets';
 import { SITE_URL, CATEGORIES } from '@/lib/site-config';
 
 // Use a fixed build date instead of new Date() on every request to avoid unstable lastModified
@@ -45,18 +44,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const marketPages: MetadataRoute.Sitemap = MOCK_MARKETS.map((market) => ({
-    url: `${SITE_URL}/markets/${market.slug}`,
-    lastModified: BUILD_DATE,
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }));
-
   return [
     ...staticPages,
     ...categoryPages,
     ...productPages,
     ...blogPages,
-    ...marketPages,
   ];
 }

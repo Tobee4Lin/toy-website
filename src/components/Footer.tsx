@@ -176,11 +176,10 @@ export default function Footer() {
                 href={config.socialLinks.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 rounded-full bg-[#1877F2] px-4 py-2 text-sm font-medium text-white shadow-md transition-all hover:bg-[#1877F2]/90 hover:shadow-lg"
+                className="flex items-center justify-center rounded-full bg-[#1877F2] p-2.5 text-white shadow-md transition-all hover:bg-[#1877F2]/90 hover:shadow-lg"
                 aria-label="Facebook"
               >
-                <Facebook className="size-4" />
-                <span>Follow us</span>
+                <Facebook className="size-5" />
               </a>
             )}
             {config.socialLinks.linkedin && (
