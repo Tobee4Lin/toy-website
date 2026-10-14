@@ -122,31 +122,12 @@ export default function ProductGallery({
           onClick={() => setShowModal(false)}
         >
           <button
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/20 p-2 text-white hover:bg-white/30"
             onClick={() => setShowModal(false)}
             aria-label="Close"
           >
             <X className="size-6" />
           </button>
-
-          {images.length > 1 && (
-            <>
-              <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
-                onClick={(e) => { e.stopPropagation(); prev(); }}
-                aria-label="Previous"
-              >
-                <ChevronLeft className="size-7" />
-              </button>
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
-                onClick={(e) => { e.stopPropagation(); next(); }}
-                aria-label="Next"
-              >
-                <ChevronRight className="size-7" />
-              </button>
-            </>
-          )}
 
           <div
             className="relative max-h-[85vh] max-w-[90vw]"
@@ -157,6 +138,24 @@ export default function ProductGallery({
               alt={productName}
               className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
             />
+            {images.length > 1 && (
+              <>
+                <button
+                  className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white hover:bg-black/70 md:-left-14 md:bg-white/20 md:hover:bg-white/30"
+                  onClick={(e) => { e.stopPropagation(); prev(); }}
+                  aria-label="Previous"
+                >
+                  <ChevronLeft className="size-6" />
+                </button>
+                <button
+                  className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white hover:bg-black/70 md:-right-14 md:bg-white/20 md:hover:bg-white/30"
+                  onClick={(e) => { e.stopPropagation(); next(); }}
+                  aria-label="Next"
+                >
+                  <ChevronRight className="size-6" />
+                </button>
+              </>
+            )}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-1.5 text-sm text-white">
               {activeImage + 1} / {images.length}
             </div>
