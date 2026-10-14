@@ -135,7 +135,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <div className="mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-12">
         <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
           {/* Left: Gallery + Info */}
-          <div>
+          <div className="min-w-0">
             <ProductGallery
               images={galleryImages}
               productName={product.name}

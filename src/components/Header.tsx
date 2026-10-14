@@ -146,9 +146,10 @@ export default function Header() {
           <Button
             size="sm"
             onClick={handleRequestQuote}
-            className="hidden bg-[#FF7A00] text-white hover:bg-[#FF7A00]/90 md:inline-flex"
+            className="bg-[#FF7A00] text-white hover:bg-[#FF7A00]/90"
           >
-            Request a Quote
+            <FileText className="size-4 md:hidden" />
+            <span className="hidden md:inline">Request a Quote</span>
           </Button>
 
           {/* Mobile menu trigger */}

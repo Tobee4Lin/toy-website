@@ -42,14 +42,14 @@ export default function ProductGallery({
   }, [showModal]);
 
   return (
-    <div className="grid gap-6 md:grid-cols-[120px_1fr]">
+    <div className="grid gap-4 md:grid-cols-[100px_1fr] md:gap-6">
       {/* 缩略图 */}
-      <div className="flex gap-2 md:flex-col">
+      <div className="order-2 flex gap-2 overflow-x-auto pb-1 md:order-1 md:flex-col md:overflow-visible md:pb-0">
         {images.map((img, i) => (
           <button
             key={i}
             onClick={() => setActiveImage(i)}
-            className={`relative aspect-square shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+            className={`relative aspect-square w-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all md:w-auto ${
               activeImage === i
                 ? 'border-[#1565FF] ring-2 ring-[#1565FF]/20'
                 : 'border-border hover:border-[#1565FF]/50'
@@ -62,13 +62,13 @@ export default function ProductGallery({
 
       {/* 主图：点击放大 */}
       <div
-        className="group relative select-none overflow-hidden rounded-2xl border border-border/50 bg-white cursor-zoom-in"
+        className="order-1 relative min-w-0 select-none overflow-hidden rounded-2xl border border-border/50 bg-white cursor-zoom-in md:order-2"
         onClick={() => setShowModal(true)}
       >
         <Image
           src={images[activeImage]}
           alt={productName}
-          className="aspect-square w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+          className="aspect-square w-full object-contain p-2 md:p-4"
         />
 
         {/* 放大提示 */}

@@ -17,7 +17,7 @@ const HERO_IMAGE = '/images/hero-bg.jpg';
 // Floating decorative shapes (pure CSS, no WebGL)
 function FloatingShapes() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
       {/* Large central glow orb (moved right to avoid left edge boundary) */}
       <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,_rgba(21_101_255_0.25),_rgba(255_122_0_0.1)_50%,_transparent_70%)] blur-2xl" />
 
@@ -203,7 +203,7 @@ export default function HeroSection() {
         <FloatingShapes />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32 lg:py-40">
+      <div className="relative mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-32 lg:py-40">
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -275,7 +275,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.55 }}
-            className="mt-12 grid max-w-md grid-cols-3 gap-6 text-center"
+            className="mt-8 grid max-w-md grid-cols-3 gap-4 text-center md:mt-12 md:gap-6"
           >
             {[
               { value: '2015', label: 'Founded' },
@@ -298,7 +298,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 md:block"
       >
         <div className="flex flex-col items-center text-white/40">
           <span className="mb-2 text-[10px] uppercase tracking-widest">Scroll</span>
