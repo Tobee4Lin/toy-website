@@ -35,7 +35,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       <ScrollToTop />
       <AnalyticsTracker />
       <Header />
-      <main className="flex-1 pt-16">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
       <WhatsAppFloat />
       <RfqDialog
