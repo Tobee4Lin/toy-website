@@ -17,7 +17,7 @@ import ProductInquiryCard from '@/components/products/ProductInquiryCard';
 import ProductCard from '@/components/products/ProductCard';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { getProductBySlug, getProducts, getAllProductSlugs } from '@/lib/server-data';
-import { productSchema, breadcrumbSchema } from '@/lib/structuredData';
+import { productPageSchema, breadcrumbSchema } from '@/lib/structuredData';
 
 export const revalidate = 300;
 
@@ -78,7 +78,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     .slice(0, 8);
 
   const productJsonLd = JSON.stringify(
-    productSchema({
+    productPageSchema({
       name: product.name,
       description: product.description || product.name,
       image: product.imageUrl,

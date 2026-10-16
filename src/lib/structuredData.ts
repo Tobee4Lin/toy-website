@@ -79,8 +79,18 @@ export function websiteSchema() {
   };
 }
 
-/** Product Schema */
-export function productSchema(product: {
+/**
+ * Product detail page schema (ItemPage).
+ *
+ * This is a B2B / wholesale inquiry site with no public price, reviews or
+ * ratings. Google's Product rich result requires one of `offers` (with price),
+ * `review` or `aggregateRating`, so emitting a bare `Product` would only
+ * produce non-eligible "invalid product" reports in Search Console without
+ * any ranking benefit. We instead describe the page as an ItemPage with the
+ * key product facts (item number, MOQ) as named properties. The brand,
+ * manufacturer and MPN are also present in the visible page content.
+ */
+export function productPageSchema(product: {
   name: string;
   description: string;
   image?: string;
@@ -94,51 +104,54 @@ export function productSchema(product: {
       ? product.image
       : `${SITE_URL}${product.image}`
     : undefined;
+  const url = product.slug ? `${SITE_URL}/product/${product.slug}` : SITE_URL;
+
+  const facts = [
+    product.itemNumber
+      ? { '@type': 'PropertyValue', name: 'Item Number', value: product.itemNumber }
+      : null,
+    product.moq
+      ? {
+          '@type': 'PropertyValue',
+          name: 'Minimum Order Quantity',
+          value: `${product.moq} pieces`,
+        }
+      : null,
+    product.category
+      ? { '@type': 'PropertyValue', name: 'Product Category', value: product.category }
+      : null,
+    {
+      '@type': 'PropertyValue',
+      name: 'Manufacturer',
+      value: COMPANY.legalName,
+    },
+    {
+      '@type': 'PropertyValue',
+      name: 'Brand',
+      value: COMPANY.name,
+    },
+  ].filter(Boolean);
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': 'ItemPage',
     name: product.name,
     description: product.description,
+    url,
     ...(imageUrl ? { image: imageUrl } : {}),
-    ...(product.slug ? { url: `${SITE_URL}/product/${product.slug}` } : {}),
-    category: product.category,
-    ...(product.itemNumber ? { mpn: product.itemNumber, sku: product.itemNumber } : {}),
-    brand: {
-      '@type': 'Brand',
+    isPartOf: {
+      '@type': 'WebSite',
       name: COMPANY.name,
-    },
-    manufacturer: {
-      '@type': 'Organization',
-      name: COMPANY.legalName,
       url: SITE_URL,
     },
-    additionalProperty: [
-      product.itemNumber
+    about: {
+      '@type': 'Thing',
+      name: product.name,
+      ...(product.category ? { category: product.category } : {}),
+      identifier: product.itemNumber
         ? { '@type': 'PropertyValue', name: 'Item Number', value: product.itemNumber }
-        : null,
-      product.moq
-        ? {
-            '@type': 'PropertyValue',
-            name: 'Minimum Order Quantity',
-            value: `${product.moq} pieces`,
-          }
-        : null,
-    ].filter(Boolean),
-    offers: {
-      '@type': 'Offer',
-      url: product.slug ? `${SITE_URL}/product/${product.slug}` : SITE_URL,
-      availability: 'https://schema.org/InStock',
-      priceCurrency: 'USD',
-      seller: {
-        '@type': 'Organization',
-        name: COMPANY.legalName,
-      },
-      eligibleQuantity: {
-        '@type': 'QuantitativeValue',
-        value: product.moq ? parseInt(product.moq) || 100 : 100,
-        unitText: 'piece',
-      },
+        : undefined,
+      additionalProperty: facts,
     },
   };
 }
@@ -250,7 +263,7 @@ export function collectionPageSchema(category: {
     description: category.description,
     url: pageUrl,
     hasPart: category.products?.map((p) => ({
-      '@type': 'Product',
+      '@type': 'WebPage',
       name: p.name,
       url: p.url.startsWith('http') ? p.url : `${SITE_URL}${p.url}`,
     })),
