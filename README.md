@@ -15,15 +15,15 @@
 |------|------|
 | 框架 | Next.js 16（App Router）+ React 19 |
 | 语言 | TypeScript（strict mode） |
-| 样式 | Tailwind CSS 4 + CSS Variables |
-| UI 组件 | shadcn/ui + Radix UI（52个组件） |
+| 样式 | Tailwind CSS 4 + CSS Variables + @tailwindcss/typography |
+| UI 组件 | shadcn/ui + Radix UI |
 | 动画 | Framer Motion |
-| 3D | Three.js + React Three Fiber（懒加载，仅客户端） |
 | 表单 | React Hook Form + Zod |
 | 图标 | Lucide React |
-| 轮播 | Embla Carousel |
+| Markdown 渲染 | react-markdown + remark-gfm |
 | 数据获取 | Server Components + fetch（ISR revalidate: 300） |
 | 状态管理 | React Context + localStorage |
+| CDN | Cloudflare（Auto Minify / Brotli / Cache Everything） |
 | 后台 API | NestJS（独立项目，端口 3000） |
 
 ---
@@ -124,28 +124,26 @@ toy-website-next/
 │   │   ├── faq/page.tsx              # FAQ（FAQPage Schema）
 │   │   ├── privacy-policy/page.tsx   # 隐私政策
 │   │   ├── my-selection/page.tsx     # 我的选型（CSR + localStorage）
-│   │   └── markets/[country]/page.tsx # 国家落地页（SSG）
 │   ├── components/
-│   │   ├── ui/                       # shadcn/ui 组件（52个，勿修改）
-│   │   ├── layout/                   # Header, Footer, WhatsAppFloat
+│   │   ├── ui/                       # shadcn/ui 组件（勿修改）
+│   │   ├── Header.tsx                # 顶部导航（sticky + 手机端汉堡菜单）
+│   │   ├── Footer.tsx                # 页脚（含 Facebook 按钮）
+│   │   ├── WhatsAppFloat.tsx         # WhatsApp 浮动按钮
 │   │   ├── sections/                 # 各页面内容区块
 │   │   │   └── home/                 # 首页 sections
-│   │   ├── products/                 # ProductCard, ProductFilter, ProductGallery
-│   │   ├── forms/                    # RfqDialog, CatalogDialog, ContactForm
+│   │   ├── products/                 # ProductCard, ProductFilter, ProductGallery, ProductInquiryCard
+│   │   ├── forms/                    # RfqDialog, CatalogDialog
 │   │   ├── selection/                # MySelectionContent
-│   │   ├── blog/                     # BlogFilter, BlogDetailActions
-│   │   └── markets/                  # MarketWhatsAppButton
+│   │   └── blog/                     # BlogFilter, BlogDetailActions
 │   ├── context/
 │   │   └── AppContext.tsx            # 全局状态（选型/RFQ/配置）
 │   ├── data/                         # 静态数据 + 类型定义
-│   │   ├── products.ts / .json       # 产品 mock 数据
-│   │   ├── categories.ts / .json     # 分类 mock 数据
-│   │   ├── blog.ts / .json           # 博客 mock 数据
-│   │   ├── markets.ts                # 国家落地页数据
+│   │   ├── products.ts / .json       # 产品数据
+│   │   ├── categories.ts / .json     # 分类数据
+│   │   ├── blog.ts / .json           # 博客数据
 │   │   └── site.ts                   # 站点配置（品牌/联系方式/SEO）
 │   ├── hooks/
 │   │   ├── useApiData.ts             # 客户端数据获取（带 API fallback）
-│   │   ├── useSEO.ts                 # 客户端动态 SEO（备用）
 │   │   └── use-mobile.ts             # 移动端检测
 │   └── lib/
 │       ├── api.ts                    # API 客户端（fetch + 类型）
@@ -153,17 +151,14 @@ toy-website-next/
 │       ├── selection.ts              # 选型 localStorage 工具
 │       ├── analytics.ts              # 分析事件抽象层
 │       ├── structuredData.ts         # JSON-LD Schema 生成器
-│       └── utils.ts                  # 通用工具（cn 等）
+│       └── site-config.ts            # 站点配置
 ├── public/
 │   ├── images/                       # 静态图片
 │   │   ├── categories/               # 分类封面图
 │   │   ├── blog/                     # 博客封面图
 │   │   └── uploads/                  # 后台上传的图片
-│   ├── favicon.svg
-│   ├── robots.txt                    # 静态 robots（备用）
-│   └── sitemap.xml                   # 静态 sitemap（备用）
+│   └── favicon.svg
 ├── .env.example                      # 环境变量模板
-├── .env.local                        # 本地环境变量（不提交 git）
 ├── next.config.ts                    # Next.js 配置
 ├── postcss.config.mjs                # PostCSS 配置
 ├── tsconfig.json                     # TypeScript 配置
@@ -176,15 +171,13 @@ toy-website-next/
 
 | 页面类型 | 渲染方式 | 说明 |
 |---------|---------|------|
-| 首页 | SSG + ISR | `revalidate: 3600`，1小时自动刷新 |
-| 产品列表/分类 | SSG + ISR | 服务端获取产品数据 |
-| 产品详情 | SSG（generateStaticParams）+ ISR | 预渲染所有产品，1小时刷新 |
-| 博客列表/详情 | SSG（generateStaticParams）+ ISR | 预渲染所有文章 |
-| 国家落地页 | SSG（generateStaticParams）+ ISR | 预渲染目标国家 |
-| OEM/Factory/Quality/About/FAQ | SSG | 纯静态，永久缓存 |
+| 首页 | SSG + ISR | `revalidate: 300`，5分钟自动刷新 |
+| 产品列表/分类 | SSG + ISR | 服务端获取产品数据，分页参数同步 URL |
+| 产品详情 | SSG（generateStaticParams）+ ISR | 预渲染所有产品 |
+| 博客列表/详情 | SSG（generateStaticParams）+ ISR | 预渲染所有文章，Markdown 渲染 |
+| OEM/Factory/Quality/About/FAQ | SSG | 纯静态 |
 | Contact/Catalog | SSG + CSR | 页面静态，表单客户端交互 |
 | My Selection | CSR | `'use client'`，localStorage 持久化 |
-| 3D 组件 | CSR + `ssr: false` | `dynamic(() => import(...), { ssr: false })` |
 
 ---
 
@@ -326,7 +319,18 @@ Nginx 将 80/443 端口的 `/` 请求代理到 `localhost:3001`，`/api/` 和 `/
 | 前台（本项目） | `toy-website-next/` | 3001 | Next.js 独立站 |
 | 后台管理 | `app_17cdbmwsc0s/` | 3000（API）/ 8080（管理界面） | NestJS + React 管理系统 |
 
-两个项目共享 SQLite 数据库。后台修改产品/博客/分类后，前台通过 ISR 1小时内自动刷新。如需即时刷新，可在后台添加 Webhook 调用 Next.js `revalidatePath`。
+两个项目共享 SQLite 数据库。后台修改产品/博客/分类后，前台通过 ISR 5分钟内自动刷新。
+
+---
+
+## 移动端优化
+
+- Hero 装饰动画元素在手机端隐藏（`hidden md:block`），减少渲染负担
+- Hero 内边距手机端减小（`py-16` vs 桌面端 `py-40`）
+- 产品详情页画廊：手机端缩略图横向滚动，主图在上
+- 图片放大模态框：箭头叠在图片两侧，手机端可切换
+- 底部 Scroll 指示器手机端隐藏
+- 产品列表页每页 9 个产品，分页参数同步 URL，浏览器返回保持原页码
 
 ---
 
@@ -336,19 +340,16 @@ Nginx 将 80/443 端口的 `/` 请求代理到 `localhost:3001`，`/api/` 和 `/
 A: 检查后台 NestJS 是否在 3000 端口运行。后台未启动时会使用本地 mock 数据。
 
 ### Q: 端口被占用？
-A: 前台默认 3001，后台默认 3000。如需修改前台端口，编辑 `package.json` 中的 `dev` 和 `start` 脚本。
+A: 前台默认 3001，后台默认 3000。如需修改前台端口，编辑 `package.json` 中的脚本。
 
 ### Q: 图片不显示？
 A: 检查 `next.config.ts` 的 `remotePatterns` 是否包含图片域名。本地图片放在 `public/images/` 下。
 
 ### Q: 如何修改品牌名称和联系方式？
-A: 编辑 `src/data/site.ts` 中的 `MOCK_SITE_CONFIG`。
+A: 编辑 `src/lib/site-config.ts` 中的配置。
 
 ### Q: 如何添加新产品？
 A: 在后台管理系统中添加，前台通过 ISR 自动同步。或直接编辑 `src/data/products.json`。
-
-### Q: 构建时 TypeScript 报错？
-A: 运行 `npx tsc --noEmit` 查看具体错误，常见原因是类型不匹配或未使用变量。
 
 ---
 
