@@ -7,18 +7,14 @@ import { ArrowRight } from 'lucide-react';
 import { Image } from '@/components/ui/image';
 import ShapeGrid from '@/components/effects/ShapeGrid';
 import type { ICategory } from '@/data/categories';
-import type { IProduct } from '@/data/products';
 
 interface ProductUniverseSectionProps {
   categories: ICategory[];
-  products: IProduct[];
 }
 
-export default function ProductUniverseSection({ categories, products }: ProductUniverseSectionProps) {
-  // Count real products per category
-  const getProductCount = (slug: string) => {
-    return products.filter((p) => p.category === slug).length;
-  };
+export default function ProductUniverseSection({ categories }: ProductUniverseSectionProps) {
+  // 首页只展示前四个核心分类
+  const displayCategories = categories.slice(0, 4);
 
   return (
     <section className="relative w-full overflow-hidden bg-[#F5F7FA] py-20 md:py-28">
@@ -44,8 +40,7 @@ export default function ProductUniverseSection({ categories, products }: Product
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {categories.map((cat, i) => {
-            const count = getProductCount(cat.slug);
+          {displayCategories.map((cat, i) => {
             return (
             <motion.div
               key={cat.id}
@@ -66,12 +61,6 @@ export default function ProductUniverseSection({ categories, products }: Product
                 <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D] via-[#071A2D]/60 to-transparent" />
 
                 <div className="absolute inset-0 flex flex-col justify-end p-8">
-                  <div
-                    className="mb-3 inline-block w-fit rounded-full px-3 py-1 text-xs font-semibold text-white"
-                    style={{ backgroundColor: cat.accentColor }}
-                  >
-                    {count > 10 ? `${count}+ Products` : `${count} Products`}
-                  </div>
                   <h3 className="mb-2 text-2xl font-bold text-white md:text-3xl">
                     {cat.name}
                   </h3>

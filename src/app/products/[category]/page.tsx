@@ -69,7 +69,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   const categoryProducts = products.filter((p) => p.category === category);
-  const categoryProductCount = categoryProducts.length;
   const hasCustomizable = categoryProducts.some((p) => p.customizable);
 
   const pageDesc = `${cat.name} manufactured in our Chenghai, China factory. ${cat.description || 'OEM/ODM customization, reliable quality and export experience.'}`;
@@ -145,12 +144,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {cat.description}
           </p>
           <div className="mt-6 flex gap-6 text-sm">
-            <div>
-              <span className="text-2xl font-bold text-white">
-                {categoryProductCount > 10 ? `${categoryProductCount}+` : categoryProductCount}
-              </span>
-              <span className="ml-2 text-white/50">Products</span>
-            </div>
             {hasCustomizable && (
               <div>
                 <span className="text-2xl font-bold text-[#FF7A00]">OEM</span>

@@ -93,7 +93,7 @@ export default async function HomePage() {
       <div className="min-h-screen bg-white">
         <HeroSection />
         <WhyChooseUsSection />
-        <ProductUniverseSection categories={categories} products={products} />
+        <ProductUniverseSection categories={categories} />
         <FeaturedProductsSection products={products} />
         <OemSection />
         <FactorySection />

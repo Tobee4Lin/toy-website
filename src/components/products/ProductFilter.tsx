@@ -142,10 +142,9 @@ function ProductFilterInner({ products, categories, activeCategory }: ProductFil
                 : 'text-muted-foreground hover:bg-muted'
             }`}
           >
-            All Products ({products.length})
+            All Products
           </button>
           {categories.map((cat) => {
-            const count = products.filter((p) => p.category === cat.slug).length;
             return (
               <button
                 key={cat.id}
@@ -156,7 +155,7 @@ function ProductFilterInner({ products, categories, activeCategory }: ProductFil
                     : 'text-muted-foreground hover:bg-muted'
                 }`}
               >
-                {cat.name} ({count})
+                {cat.name}
               </button>
             );
           })}
@@ -201,9 +200,6 @@ function ProductFilterInner({ products, categories, activeCategory }: ProductFil
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-sm text-muted-foreground">
-              {filtered.length} products
-            </span>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-[160px]">
                 <SelectValue placeholder="Sort by" />
