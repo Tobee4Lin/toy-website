@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search, Filter, Clock, Calendar, ArrowRight } from 'lucide-react';
+import { Search, Filter, Clock, Calendar, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -22,9 +22,12 @@ interface BlogFilterProps {
   posts: IBlogPost[];
 }
 
+const PAGE_SIZE = 9;
+
 export default function BlogFilter({ posts }: BlogFilterProps) {
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState('all');
+  const [page, setPage] = useState(1);
 
   const categories = useMemo(
     () => [...new Set(posts.map((p) => p.category))],
@@ -50,6 +53,17 @@ export default function BlogFilter({ posts }: BlogFilterProps) {
   const featured = posts[0];
   const showFeatured = category === 'all' && !keyword && featured;
 
+  // Paginate the grid posts (exclude featured)
+  const gridPosts = filtered.filter((p) => !showFeatured || p.id !== featured?.id);
+  const totalPages = Math.max(1, Math.ceil(gridPosts.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedPosts = gridPosts.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  const resetPage = () => setPage(1);
+
   return (
     <>
       {/* Search + Filter */}
@@ -62,14 +76,14 @@ export default function BlogFilter({ posts }: BlogFilterProps) {
                 type="search"
                 placeholder="Search articles..."
                 value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
+                onChange={(e) => { setKeyword(e.target.value); resetPage(); }}
                 className="pl-9"
               />
             </div>
 
             <div className="flex items-center gap-2">
               <Filter className="size-4 text-muted-foreground shrink-0" />
-              <Select value={category} onValueChange={setCategory}>
+              <Select value={category} onValueChange={(v) => { setCategory(v); resetPage(); }}>
                 <SelectTrigger className="h-10 w-[200px]">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
@@ -144,9 +158,7 @@ export default function BlogFilter({ posts }: BlogFilterProps) {
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filtered
-                .filter((p) => !showFeatured || p.id !== featured.id)
-                .map((post) => (
+              {pagedPosts.map((post) => (
                   <article key={post.id}>
                     <Link
                       href={`/blog/${post.slug}`}
@@ -194,7 +206,42 @@ export default function BlogFilter({ posts }: BlogFilterProps) {
                       </CardContent>
                     </Link>
                   </article>
-                ))}
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex items-center justify-center gap-2">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-white text-muted-foreground transition-colors hover:border-[#1565FF] hover:text-[#1565FF] disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="size-4" />
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`h-10 w-10 rounded-lg border text-sm font-semibold transition-colors ${
+                    p === currentPage
+                      ? 'border-[#1565FF] bg-[#1565FF] text-white'
+                      : 'border-border bg-white text-muted-foreground hover:border-[#1565FF] hover:text-[#1565FF]'
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-white text-muted-foreground transition-colors hover:border-[#1565FF] hover:text-[#1565FF] disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Next page"
+              >
+                <ChevronRight className="size-4" />
+              </button>
             </div>
           )}
         </div>
