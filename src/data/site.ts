@@ -24,7 +24,7 @@ export interface ISiteConfig {
 export const MOCK_SITE_CONFIG: ISiteConfig = {
   brandName: 'Levich Toys',
   slogan: 'PLAY BEYOND LIMITS',
-  companyName: 'Guangdong Levich Toys Co., Ltd.',
+  companyName: 'Shantou Levich Toys Co., Ltd.',
   email: 'felix@levichtoys.com',
   whatsapp: '8613538618656',
   phone: '+86 13538618656',

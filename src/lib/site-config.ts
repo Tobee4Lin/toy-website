@@ -7,7 +7,7 @@ export const SITE_URL = 'https://levichtoys.com';
 
 export const COMPANY = {
   name: 'Levich Toys',
-  legalName: 'Guangdong Levich Toys Co., Ltd.',
+  legalName: 'Shantou Levich Toys Co., Ltd.',
   shortName: 'Levich Toys',
   foundedYear: 2015,
   email: 'felix@levichtoys.com',
