@@ -29,6 +29,8 @@ const nextConfig: NextConfig = {
     return [
       { source: '/factory', destination: '/about', permanent: true },
       { source: '/quality', destination: '/about', permanent: true },
+      { source: '/markets', destination: '/products', permanent: true },
+      { source: '/markets/:path*', destination: '/products', permanent: true },
     ];
   },
 };
