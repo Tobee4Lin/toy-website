@@ -159,14 +159,19 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   <h3 className="mb-3 text-lg font-bold text-[#071A2D]">
                     Product Description
                   </h3>
-                  <p className="leading-relaxed text-muted-foreground">
-                    {product.description}
+                  {product.description ? (
+                    <p className="leading-relaxed text-muted-foreground">
+                      {product.description}
+                    </p>
+                  ) : null}
+                  <p className="mt-4 leading-relaxed text-muted-foreground">
+                    {product.name} is a {product.categoryLabel.toLowerCase()} manufactured by Shantou Levich Toys Co., Ltd. in Chenghai, Guangdong — China's largest toy manufacturing hub. With over a decade of production experience, we ensure every unit meets strict international safety standards including EN71, ASTM, and CPC requirements.
                   </p>
                   <p className="mt-4 leading-relaxed text-muted-foreground">
-                    This product is manufactured in Chenghai, China — the world&apos;s
-                    toy capital. We ensure rigorous quality control at every stage of
-                    production and support full OEM customization to meet your
-                    brand&apos;s specific requirements.
+                    As a direct factory supplier, we offer competitive wholesale pricing with flexible MOQ starting from {product.moq.toLocaleString()} pieces. Our comprehensive OEM/ODM services include custom logo printing, color box design, packaging modification, and product development based on your specifications. Whether you are a toy distributor, importer, retailer, or e-commerce seller, we can support your business with reliable lead times of 20–25 days and consistent quality control throughout production.
+                  </p>
+                  <p className="mt-4 leading-relaxed text-muted-foreground">
+                    Located in Chenghai — the toy capital of China — our 20,000 m² factory houses advanced injection molding, assembly, and printing workshops. We export to over 30 countries across Europe, North America, the Middle East, and Southeast Asia, serving both established brands and growing businesses. Contact us today to request a free sample or get a factory-direct quotation for {product.name}.
                   </p>
                 </TabsContent>
 
