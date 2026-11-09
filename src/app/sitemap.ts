@@ -2,6 +2,9 @@ import type { MetadataRoute } from 'next';
 import { getProducts, getBlogPosts } from '@/lib/server-data';
 import { SITE_URL, CATEGORIES } from '@/lib/site-config';
 
+// Revalidate sitemap every hour so new products appear without rebuild
+export const revalidate = 3600;
+
 // Use a fixed build date instead of new Date() on every request to avoid unstable lastModified
 const BUILD_DATE = new Date();
 
